@@ -1,24 +1,21 @@
-package chess;
+package model;
 
 /**
- * This class represents the piece Rook.
+ * This class represents the piece Queen.
  *
  * @author Jishnu Patel
  * @author Ujjaval Shah
  */
-public class Rook extends Piece
+public class Queen extends Piece
 {
-	boolean moved = false;
-	
-	Rook(String color)
+	Queen(String color)
 	{
 		super(color);
-		this.moved = false;
 	}
 	
 	public String toString()
 	{
-		return super.toString() + "R";
+		return super.toString() + "Q";
 	}
 
 	public boolean move(String input, boolean modify)
@@ -27,11 +24,6 @@ public class Rook extends Piece
 		int row1 = Board.rank_to_row(input.charAt(1));
 		int col2 = Board.file_to_col(input.charAt(3));
 		int row2 = Board.rank_to_row(input.charAt(4));
-		boolean ret = move_straight(row1, col1, row2, col2, modify);
-		if (ret && modify)
-		{
-			moved = true;
-		}
-		return ret;
+		return move_straight(row1, col1, row2, col2, modify) || move_diagonal(row1, col1, row2, col2, modify);
 	}
 }

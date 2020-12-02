@@ -1,4 +1,4 @@
-package chess;
+package model;
 
 /**
  * This class represents the piece Knight.
