@@ -31,6 +31,7 @@
         android:text="@string/new_game"
         app:layout_constraintBottom_toTopOf="@+id/recordedGames"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
