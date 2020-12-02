@@ -3,4 +3,6 @@
     <string name="chess">Chess</string>
     <string name="new_game">New Game</string>
     <string name="recorded_games">Recorded Games</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
 </resources>

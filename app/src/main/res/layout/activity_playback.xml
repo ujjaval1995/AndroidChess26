@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="ContentDescription"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -59,28 +60,19 @@
         app:layout_constraintVertical_bias="1.0">
 
         <Button
-            android:id="@+id/btnAI"
-            android:layout_width="100dp"
+            android:id="@+id/btnPrev"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:text="AI" />
+            android:text="@string/previous" />
+
 
         <Button
-            android:id="@+id/btnRollback"
-            android:layout_width="100dp"
+            android:id="@+id/btnNext"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:text="Undo" />
+            android:text="@string/next" />
 
-        <Button
-            android:id="@+id/btnDraw"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="Draw" />
-
-        <Button
-            android:id="@+id/btnResign"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="Resign" />
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
