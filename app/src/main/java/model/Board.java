@@ -7,65 +7,69 @@ package model;
  */
 public class Board
 {
-	static Piece[][] board;
-	
-	static void make_board()
+	Piece[][] pieces;
+	Board next;
+	Board prev;
+
+	public Board()
 	{
-		board = new Piece[8][8];
+		pieces = new Piece[8][8];
+		next = null;
+		prev = null;
 	}
 	
-	static void initialize_board()
+	public void initialize_pieces()
 	{
 		for (int j=0; j<8; j++)
 		{
-			board[1][j] = new Pawn("black");
-			board[6][j] = new Pawn("white");
+			pieces[1][j] = new Pawn("black");
+			pieces[6][j] = new Pawn("white");
 		}
 		for (int j=0; j<8; j+=7)
 		{
-			board[0][j] = new Rook("black");
-			board[7][j] = new Rook("white");
+			pieces[0][j] = new Rook("black");
+			pieces[7][j] = new Rook("white");
 		}
 		for (int j=1; j<8; j+=5)
 		{
-			board[0][j] = new Knight("black");
-			board[7][j] = new Knight("white");
+			pieces[0][j] = new Knight("black");
+			pieces[7][j] = new Knight("white");
 		}
 		for (int j=2; j<8; j+=3)
 		{
-			board[0][j] = new Bishop("black");
-			board[7][j] = new Bishop("white");
+			pieces[0][j] = new Bishop("black");
+			pieces[7][j] = new Bishop("white");
 		}
-		board[0][3] = new Queen("black");
-		board[7][3] = new Queen("white");
-		board[0][4] = new King("black");
-		board[7][4] = new King("white");
+		pieces[0][3] = new Queen("black");
+		pieces[7][3] = new Queen("white");
+		pieces[0][4] = new King("black");
+		pieces[7][4] = new King("white");
 	}
 	
-	static void print_board()
-	{
-		for (int i=0; i<8; i++)
-		{
-			for (int j=0; j<8; j++)
-			{
-				Piece piece = board[i][j];
-				if (piece != null)
-				{
-					System.out.print(piece + " ");
-				}
-				else if ((i+j)%2 == 1)
-				{
-					System.out.print("## ");
-				}
-				else
-				{
-					System.out.print("   ");
-				}
-			}
-			System.out.println(8-i);
-		}
-		System.out.println(" a  b  c  d  e  f  g  h\n");
-	}
+//	static void print_board()
+//	{
+//		for (int i=0; i<8; i++)
+//		{
+//			for (int j=0; j<8; j++)
+//			{
+//				Piece piece = board[i][j];
+//				if (piece != null)
+//				{
+//					System.out.print(piece + " ");
+//				}
+//				else if ((i+j)%2 == 1)
+//				{
+//					System.out.print("## ");
+//				}
+//				else
+//				{
+//					System.out.print("   ");
+//				}
+//			}
+//			System.out.println(8-i);
+//		}
+//		System.out.println(" a  b  c  d  e  f  g  h\n");
+//	}
 	
 	static int file_to_col(char file)
 	{
@@ -131,70 +135,70 @@ public class Board
 		return ' ';
 	}
 	
-	static boolean check(String color)
-	{
-		Piece king = Board.board[0][0];
-		int x=0, y=0;
-		boolean flag = false;
-		for (x=0; x<8; x++)
-		{
-			for (y=0; y<8; y++)
-			{
-				king = Board.board[x][y];
-				if (king != null && king instanceof King && king.hasColor(color))
-				{
-					flag = true;
-					break;
-				}
-			}
-			if (flag)
-			{
-				break;
-			}
-		}
-		Piece attacker = null;
-		for (int i=0; i<8; i++)
-		{
-			for (int j=0; j<8; j++)
-			{
-				attacker = Board.board[i][j];
-				if (attacker != null && !attacker.hasColor(color))
-				{
-					if (attacker.move(col_to_file(j) + "" + row_to_rank(i) + " " + col_to_file(y) + "" + row_to_rank(x), false))
-					{
-						// System.out.println(color + " in check by " + col_to_file(j) + row_to_rank(i));
-						return true;
-					}
-				}
-			}
-		}
-		return false;
-	}
-	
-	static boolean checkmate(String color)
-	{
-		for (int i=0; i<8; i++)
-		{
-			for (int j=0; j<8; j++)
-			{
-				Piece piece = Board.board[i][j];
-				if (piece != null && piece.hasColor(color))
-				{
-					for (int x=0; x<8; x++)
-					{
-						for (int y=0; y<8; y++)
-						{
-							if (piece.move(col_to_file(j) + "" + row_to_rank(i) + " " + col_to_file(y) + "" + row_to_rank(x), false))
-							{
-								
-								return false;
-							}
-						}
-					}
-					
-				}
-			}
-		}
-		return true;
-	}
+//	static boolean check(String color)
+//	{
+//		Piece king = Board.board[0][0];
+//		int x=0, y=0;
+//		boolean flag = false;
+//		for (x=0; x<8; x++)
+//		{
+//			for (y=0; y<8; y++)
+//			{
+//				king = Board.board[x][y];
+//				if (king != null && king instanceof King && king.hasColor(color))
+//				{
+//					flag = true;
+//					break;
+//				}
+//			}
+//			if (flag)
+//			{
+//				break;
+//			}
+//		}
+//		Piece attacker = null;
+//		for (int i=0; i<8; i++)
+//		{
+//			for (int j=0; j<8; j++)
+//			{
+//				attacker = Board.board[i][j];
+//				if (attacker != null && !attacker.hasColor(color))
+//				{
+//					if (attacker.move(col_to_file(j) + "" + row_to_rank(i) + " " + col_to_file(y) + "" + row_to_rank(x), false))
+//					{
+//						// System.out.println(color + " in check by " + col_to_file(j) + row_to_rank(i));
+//						return true;
+//					}
+//				}
+//			}
+//		}
+//		return false;
+//	}
+//
+//	static boolean checkmate(String color)
+//	{
+//		for (int i=0; i<8; i++)
+//		{
+//			for (int j=0; j<8; j++)
+//			{
+//				Piece piece = Board.board[i][j];
+//				if (piece != null && piece.hasColor(color))
+//				{
+//					for (int x=0; x<8; x++)
+//					{
+//						for (int y=0; y<8; y++)
+//						{
+//							if (piece.move(col_to_file(j) + "" + row_to_rank(i) + " " + col_to_file(y) + "" + row_to_rank(x), false))
+//							{
+//
+//								return false;
+//							}
+//						}
+//					}
+//
+//				}
+//			}
+//		}
+//		return true;
+//	}
 }
