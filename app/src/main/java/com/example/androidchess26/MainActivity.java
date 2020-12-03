@@ -18,8 +18,8 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnNewGame = (Button) findViewById(R.id.btnNewGame);
-        btnRecordedGames = (Button) findViewById(R.id.btnRecordedGames);
+        btnNewGame = findViewById(R.id.btnNewGame);
+        btnRecordedGames = findViewById(R.id.btnRecordedGames);
 
         btnNewGame.setOnClickListener(new View.OnClickListener()
         {
