@@ -7,12 +7,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import model.*;
 
 
 public class GameActivity extends AppCompatActivity
 {
     Button btnAI;
-    Button btnRollback;
+    Button btnUndo;
     Button btnDraw;
     Button btnResign;
 
@@ -23,9 +24,13 @@ public class GameActivity extends AppCompatActivity
         setContentView(R.layout.activity_game);
 
         btnAI = findViewById(R.id.btnAI);
-        btnRollback = findViewById(R.id.btnRollback);
+        btnUndo = findViewById(R.id.btnUndo);
         btnDraw = findViewById(R.id.btnDraw);
         btnResign = findViewById(R.id.btnResign);
+
+        Game game = new Game();
+
+
 
         btnAI.setOnClickListener(new View.OnClickListener()
         {
@@ -37,7 +42,7 @@ public class GameActivity extends AppCompatActivity
             }
         });
 
-        btnRollback.setOnClickListener(new View.OnClickListener()
+        btnUndo.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View arg0)
@@ -57,7 +62,8 @@ public class GameActivity extends AppCompatActivity
             }
         });
 
-        btnResign.setOnClickListener(new View.OnClickListener() {
+        btnResign.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View arg0) {
                 // Intent intent = new Intent(MainActivity.this, GameActivity.class);
