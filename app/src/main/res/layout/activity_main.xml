@@ -15,13 +15,13 @@
         android:text="@string/chess"
         android:textColor="#FF9800"
         android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/newGame"
+        app:layout_constraintBottom_toTopOf="@+id/btnNewGame"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/newGame"
+        android:id="@+id/btnNewGame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="148dp"
@@ -29,14 +29,14 @@
         android:layout_marginEnd="149dp"
         android:layout_marginBottom="16dp"
         android:text="@string/new_game"
-        app:layout_constraintBottom_toTopOf="@+id/recordedGames"
+        app:layout_constraintBottom_toTopOf="@+id/btnRecordedGames"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
-        android:id="@+id/recordedGames"
+        android:id="@+id/btnRecordedGames"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="120dp"
@@ -46,6 +46,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newGame" />
+        app:layout_constraintTop_toBottomOf="@+id/btnNewGame" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
