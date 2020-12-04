@@ -7,43 +7,43 @@ package model;
  */
 public class Board
 {
-	Piece[][] pieces;
+	Piece[][] board_idx;
 	Board next;
 	Board prev;
 
 	public Board()
 	{
-		pieces = new Piece[8][8];
+		board_idx = new Piece[8][8];
 		next = null;
 		prev = null;
 	}
 	
-	public void initialize_pieces()
+	public void initialize_board()
 	{
 		for (int j=0; j<8; j++)
 		{
-			pieces[1][j] = new Pawn("black");
-			pieces[6][j] = new Pawn("white");
+			board_idx[1][j] = new Pawn("black");
+			board_idx[6][j] = new Pawn("white");
 		}
 		for (int j=0; j<8; j+=7)
 		{
-			pieces[0][j] = new Rook("black");
-			pieces[7][j] = new Rook("white");
+			board_idx[0][j] = new Rook("black");
+			board_idx[7][j] = new Rook("white");
 		}
 		for (int j=1; j<8; j+=5)
 		{
-			pieces[0][j] = new Knight("black");
-			pieces[7][j] = new Knight("white");
+			board_idx[0][j] = new Knight("black");
+			board_idx[7][j] = new Knight("white");
 		}
 		for (int j=2; j<8; j+=3)
 		{
-			pieces[0][j] = new Bishop("black");
-			pieces[7][j] = new Bishop("white");
+			board_idx[0][j] = new Bishop("black");
+			board_idx[7][j] = new Bishop("white");
 		}
-		pieces[0][3] = new Queen("black");
-		pieces[7][3] = new Queen("white");
-		pieces[0][4] = new King("black");
-		pieces[7][4] = new King("white");
+		board_idx[0][3] = new Queen("black");
+		board_idx[7][3] = new Queen("white");
+		board_idx[0][4] = new King("black");
+		board_idx[7][4] = new King("white");
 	}
 	
 //	static void print_board()
@@ -137,14 +137,14 @@ public class Board
 	
 	public boolean check(String color)
 	{
-		Piece king = pieces[0][0];
+		Piece king = board_idx[0][0];
 		int x=0, y=0;
 		boolean flag = false;
 		for (x=0; x<8; x++)
 		{
 			for (y=0; y<8; y++)
 			{
-				king = pieces[x][y];
+				king = board_idx[x][y];
 				if (king != null && king instanceof King && king.hasColor(color))
 				{
 					flag = true;
@@ -161,7 +161,7 @@ public class Board
 		{
 			for (int j=0; j<8; j++)
 			{
-				attacker = pieces[i][j];
+				attacker = board_idx[i][j];
 				if (attacker != null && !attacker.hasColor(color))
 				{
 					if (attacker.move(col_to_file(j) + "" + row_to_rank(i) + " " + col_to_file(y) + "" + row_to_rank(x), false))
@@ -181,7 +181,7 @@ public class Board
 		{
 			for (int j=0; j<8; j++)
 			{
-				Piece piece = pieces[i][j];
+				Piece piece = board_idx[i][j];
 				if (piece != null && piece.hasColor(color))
 				{
 					for (int x=0; x<8; x++)

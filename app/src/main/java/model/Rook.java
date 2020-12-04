@@ -23,10 +23,10 @@ public class Rook extends Piece
 
 	public boolean move(String input, boolean modify)
 	{
-		int col1 = Board.file_to_col(input.charAt(0));
-		int row1 = Board.rank_to_row(input.charAt(1));
-		int col2 = Board.file_to_col(input.charAt(3));
-		int row2 = Board.rank_to_row(input.charAt(4));
+		int col1 = file_to_col(input.charAt(0));
+		int row1 = rank_to_row(input.charAt(1));
+		int col2 = file_to_col(input.charAt(3));
+		int row2 = rank_to_row(input.charAt(4));
 		boolean ret = move_straight(row1, col1, row2, col2, modify);
 		if (ret && modify)
 		{

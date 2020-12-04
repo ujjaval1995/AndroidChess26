@@ -23,10 +23,10 @@ public class King extends Piece
 
 	public boolean move(String input, boolean modify)
 	{
-		int col1 = Board.file_to_col(input.charAt(0));
-		int row1 = Board.rank_to_row(input.charAt(1));
-		int col2 = Board.file_to_col(input.charAt(3));
-		int row2 = Board.rank_to_row(input.charAt(4));
+		int col1 = file_to_col(input.charAt(0));
+		int row1 = rank_to_row(input.charAt(1));
+		int col2 = file_to_col(input.charAt(3));
+		int row2 = rank_to_row(input.charAt(4));
 		boolean ret = move_1(row1, col1, row2, col2, modify) || castle(row1, col1, row2, col2);
 		if (ret && modify)
 		{
@@ -54,7 +54,7 @@ public class King extends Piece
 	
 	public boolean castle(int row1, int col1, int row2, int col2)
 	{
-		if (moved || row1 != row2 || Board.check(this.getColor())) // moved, different row, check
+		if (moved || row1 != row2 || check(this.getColor())) // moved, different row, check
 		{
 			return false;
 		}
@@ -62,7 +62,7 @@ public class King extends Piece
 		{
 			if (regular_move(row1, col1, row1, col1+1, false) && regular_move(row1, col1, row1, col1+2, false)) // move and clear path
 			{
-				Piece piece = Board.board[row1][7];
+				Piece piece = board_idx[row1][7];
 				if (piece instanceof Rook && piece.hasColor(this.getColor()))
 				{
 					Rook rook = (Rook) piece;
@@ -72,16 +72,16 @@ public class King extends Piece
 					}
 					else
 					{
-						Board.board[row1][col1] = null;
-						Board.board[row1][col1+1] = piece;
-						Board.board[row1][col1+2] = this;
-						Board.board[row1][7] = null;
-						if (Board.check(this.getColor()))
+						board_idx[row1][col1] = null;
+						board_idx[row1][col1+1] = piece;
+						board_idx[row1][col1+2] = this;
+						board_idx[row1][7] = null;
+						if (check(this.getColor()))
 						{
-							Board.board[row1][col1] = this;
-							Board.board[row1][col1+1] = null;
-							Board.board[row1][col1+2] = null;
-							Board.board[row1][7] = piece;
+							board_idx[row1][col1] = this;
+							board_idx[row1][col1+1] = null;
+							board_idx[row1][col1+2] = null;
+							board_idx[row1][7] = piece;
 							return false;
 						}
 						else
@@ -104,7 +104,7 @@ public class King extends Piece
 		{
 			if (regular_move(row1, col1, row1, col1-1, false) && regular_move(row1, col1, row1, col1-2, false)) // move and clear path
 			{
-				Piece piece = Board.board[row1][0];
+				Piece piece = board_idx[row1][0];
 				if (piece instanceof Rook && piece.hasColor(this.getColor()))
 				{
 					Rook rook = (Rook) piece;
@@ -114,16 +114,16 @@ public class King extends Piece
 					}
 					else
 					{
-						Board.board[row1][col1] = null;
-						Board.board[row1][col1-1] = piece;
-						Board.board[row1][col1-2] = this;
-						Board.board[row1][0] = null;
-						if (Board.check(this.getColor()))
+						board_idx[row1][col1] = null;
+						board_idx[row1][col1-1] = piece;
+						board_idx[row1][col1-2] = this;
+						board_idx[row1][0] = null;
+						if (check(this.getColor()))
 						{
-							Board.board[row1][col1] = this;
-							Board.board[row1][col1-1] = null;
-							Board.board[row1][col1-2] = null;
-							Board.board[row1][0] = piece;
+							board_idx[row1][col1] = this;
+							board_idx[row1][col1-1] = null;
+							board_idx[row1][col1-2] = null;
+							board_idx[row1][0] = piece;
 							return false;
 						}
 						else
