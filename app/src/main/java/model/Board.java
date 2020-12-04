@@ -135,70 +135,70 @@ public class Board
 		return ' ';
 	}
 	
-//	static boolean check(String color)
-//	{
-//		Piece king = Board.board[0][0];
-//		int x=0, y=0;
-//		boolean flag = false;
-//		for (x=0; x<8; x++)
-//		{
-//			for (y=0; y<8; y++)
-//			{
-//				king = Board.board[x][y];
-//				if (king != null && king instanceof King && king.hasColor(color))
-//				{
-//					flag = true;
-//					break;
-//				}
-//			}
-//			if (flag)
-//			{
-//				break;
-//			}
-//		}
-//		Piece attacker = null;
-//		for (int i=0; i<8; i++)
-//		{
-//			for (int j=0; j<8; j++)
-//			{
-//				attacker = Board.board[i][j];
-//				if (attacker != null && !attacker.hasColor(color))
-//				{
-//					if (attacker.move(col_to_file(j) + "" + row_to_rank(i) + " " + col_to_file(y) + "" + row_to_rank(x), false))
-//					{
-//						// System.out.println(color + " in check by " + col_to_file(j) + row_to_rank(i));
-//						return true;
-//					}
-//				}
-//			}
-//		}
-//		return false;
-//	}
-//
-//	static boolean checkmate(String color)
-//	{
-//		for (int i=0; i<8; i++)
-//		{
-//			for (int j=0; j<8; j++)
-//			{
-//				Piece piece = Board.board[i][j];
-//				if (piece != null && piece.hasColor(color))
-//				{
-//					for (int x=0; x<8; x++)
-//					{
-//						for (int y=0; y<8; y++)
-//						{
-//							if (piece.move(col_to_file(j) + "" + row_to_rank(i) + " " + col_to_file(y) + "" + row_to_rank(x), false))
-//							{
-//
-//								return false;
-//							}
-//						}
-//					}
-//
-//				}
-//			}
-//		}
-//		return true;
-//	}
+	public boolean check(String color)
+	{
+		Piece king = pieces[0][0];
+		int x=0, y=0;
+		boolean flag = false;
+		for (x=0; x<8; x++)
+		{
+			for (y=0; y<8; y++)
+			{
+				king = pieces[x][y];
+				if (king != null && king instanceof King && king.hasColor(color))
+				{
+					flag = true;
+					break;
+				}
+			}
+			if (flag)
+			{
+				break;
+			}
+		}
+		Piece attacker = null;
+		for (int i=0; i<8; i++)
+		{
+			for (int j=0; j<8; j++)
+			{
+				attacker = pieces[i][j];
+				if (attacker != null && !attacker.hasColor(color))
+				{
+					if (attacker.move(col_to_file(j) + "" + row_to_rank(i) + " " + col_to_file(y) + "" + row_to_rank(x), false))
+					{
+						// System.out.println(color + " in check by " + col_to_file(j) + row_to_rank(i));
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+
+	public boolean checkmate(String color)
+	{
+		for (int i=0; i<8; i++)
+		{
+			for (int j=0; j<8; j++)
+			{
+				Piece piece = pieces[i][j];
+				if (piece != null && piece.hasColor(color))
+				{
+					for (int x=0; x<8; x++)
+					{
+						for (int y=0; y<8; y++)
+						{
+							if (piece.move(col_to_file(j) + "" + row_to_rank(i) + " " + col_to_file(y) + "" + row_to_rank(x), false))
+							{
+
+								return false;
+							}
+						}
+					}
+
+				}
+			}
+		}
+		return true;
+	}
 }
