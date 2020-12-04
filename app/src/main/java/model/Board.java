@@ -71,7 +71,7 @@ public class Board
 //		System.out.println(" a  b  c  d  e  f  g  h\n");
 //	}
 	
-	static int file_to_col(char file)
+	public static int file_to_col(char file)
 	{
 		switch (file)
 		{
@@ -87,7 +87,7 @@ public class Board
 		return -1;
 	}
 	
-	static int rank_to_row(char rank)
+	public static int rank_to_row(char rank)
 	{
 		switch(rank)
 		{
@@ -103,7 +103,7 @@ public class Board
 		return -1;
 	}
 	
-	static char col_to_file(int col)
+	public static char col_to_file(int col)
 	{
 		switch (col)
 		{
@@ -119,7 +119,7 @@ public class Board
 		return ' ';
 	}
 	
-	static char row_to_rank(int row)
+	public static char row_to_rank(int row)
 	{
 		switch(row)
 		{

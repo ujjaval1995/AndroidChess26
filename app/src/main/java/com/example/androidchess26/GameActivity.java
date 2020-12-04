@@ -3,13 +3,14 @@ package com.example.androidchess26;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import model.Game;
+import model.*;
 
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener
@@ -37,6 +38,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         btnUndo.setOnClickListener(this);
         btnDraw.setOnClickListener(this);
         btnResign.setOnClickListener(this);
+
+        init_board();
 
         Game game = new Game();
 
@@ -73,4 +76,19 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
+
+    public void init_board()
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+                Resources res = getResources();
+                int id = res.getIdentifier(Character.toString(Board.col_to_file(j)) + Character.toString(Board.row_to_rank(i)), "id", this.getPackageName());
+                views[i][j] = (ImageView) findViewById(id);
+                views[i][j].setOnClickListener(this);
+            }
+        }
+    }
+
 }
