@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -11,12 +12,15 @@ import android.widget.ImageView;
 import model.Game;
 
 
-public class GameActivity extends AppCompatActivity
+public class GameActivity extends AppCompatActivity implements View.OnClickListener
 {
     Button btnAI;
     Button btnUndo;
     Button btnDraw;
     Button btnResign;
+
+    ImageView[][] views = new ImageView[8][8];
+    String selected = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -24,68 +28,49 @@ public class GameActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        btnAI = findViewById(R.id.btnAI);
-        btnUndo = findViewById(R.id.btnUndo);
-        btnDraw = findViewById(R.id.btnDraw);
-        btnResign = findViewById(R.id.btnResign);
+        btnAI = (Button) findViewById(R.id.btnAI);
+        btnUndo = (Button) findViewById(R.id.btnUndo);
+        btnDraw = (Button) findViewById(R.id.btnDraw);
+        btnResign = (Button) findViewById(R.id.btnResign);
+
+        btnAI.setOnClickListener(this);
+        btnUndo.setOnClickListener(this);
+        btnDraw.setOnClickListener(this);
+        btnResign.setOnClickListener(this);
 
         Game game = new Game();
 
 
-
-        btnAI.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View arg0)
-            {
-                System.out.println("clicked");
-               // Intent intent = new Intent(MainActivity.this, GameActivity.class);
-               // startActivity(intent);
-            }
-        });
-
-        btnUndo.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View arg0)
-            {
-                System.out.println("clicked");
-                // Intent intent = new Intent(MainActivity.this, GameActivity.class);
-                // startActivity(intent);
-            }
-        });
-
-        btnDraw.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View arg0)
-            {
-                System.out.println("clicked");
-                Intent intent = new Intent(GameActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        btnResign.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View arg0)
-            {
-                System.out.println("clicked/Opponent Wins");
-                Intent intent = new Intent(GameActivity.this, MainActivity.class);
-                // startActivity(intent);
-            }
-        });
     }
 
-    public void onClick(View arg0)
+    @Override
+    public void onClick(View view)
     {
-        if (arg0 instanceof ImageView)
+        if (view instanceof Button)
         {
-            ImageView img = (ImageView) arg0;
-            System.out.println("clicked");
+            Button btn = (Button) view;
+            Log.i("Button", view.getResources().getResourceName(view.getId()));
+            switch (btn.getId())
+            {
+                case R.id.btnAI:
+                    // do something
+                    break;
+                case R.id.btnUndo:
+                    // do something
+                    break;
+                case R.id.btnDraw:
+                    // do something
+                    break;
+                case R.id.btnResign:
+                    // do something
+                    break;
+            }
         }
+        else if (view instanceof ImageView)
+        {
+           ImageView img = (ImageView) view;
+           Log.i("ImageView", view.getResources().getResourceName(view.getId()));
+        }
+
     }
-
-
 }
