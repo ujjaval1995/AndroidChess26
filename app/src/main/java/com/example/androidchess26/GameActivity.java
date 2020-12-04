@@ -22,8 +22,6 @@ public class GameActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        Log.i("create", "GameActivity");
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
