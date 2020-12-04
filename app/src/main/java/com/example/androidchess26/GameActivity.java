@@ -61,8 +61,8 @@ public class GameActivity extends AppCompatActivity
             public void onClick(View arg0)
             {
                 System.out.println("clicked");
-                // Intent intent = new Intent(MainActivity.this, GameActivity.class);
-                // startActivity(intent);
+                Intent intent = new Intent(GameActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -71,8 +71,8 @@ public class GameActivity extends AppCompatActivity
             @Override
             public void onClick(View arg0)
             {
-                System.out.println("clicked");
-                // Intent intent = new Intent(MainActivity.this, GameActivity.class);
+                System.out.println("clicked/Opponent Wins");
+                Intent intent = new Intent(GameActivity.this, MainActivity.class);
                 // startActivity(intent);
             }
         });
