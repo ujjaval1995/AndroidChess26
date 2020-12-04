@@ -33,58 +33,25 @@ public class GameActivity extends AppCompatActivity
 
 
 
-        btnAI.setOnClickListener(new View.OnClickListener()
+        btnAI.setOnClickListener(arg0 ->
         {
-            @Override
-            public void onClick(View arg0)
-            {
-                System.out.println("clicked");
-               // Intent intent = new Intent(MainActivity.this, GameActivity.class);
-               // startActivity(intent);
-            }
+
         });
 
-        btnUndo.setOnClickListener(new View.OnClickListener()
+        btnUndo.setOnClickListener(arg0 ->
         {
-            @Override
-            public void onClick(View arg0)
-            {
-                System.out.println("clicked");
-                // Intent intent = new Intent(MainActivity.this, GameActivity.class);
-                // startActivity(intent);
-            }
+
         });
 
-        btnDraw.setOnClickListener(new View.OnClickListener()
+        btnDraw.setOnClickListener(arg0 ->
         {
-            @Override
-            public void onClick(View arg0)
-            {
-                System.out.println("clicked");
-                Intent intent = new Intent(GameActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
+
         });
 
-        btnResign.setOnClickListener(new View.OnClickListener()
+        btnResign.setOnClickListener(arg0 ->
         {
-            @Override
-            public void onClick(View arg0)
-            {
-                System.out.println("clicked/Opponent Wins");
-                Intent intent = new Intent(GameActivity.this, MainActivity.class);
-                // startActivity(intent);
-            }
-        });
-    }
 
-    public void onClick(View arg0)
-    {
-        if (arg0 instanceof ImageView)
-        {
-            ImageView img = (ImageView) arg0;
-            System.out.println("clicked");
-        }
+        });
     }
 
 
