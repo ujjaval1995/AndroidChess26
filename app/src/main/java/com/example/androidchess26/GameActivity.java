@@ -12,12 +12,15 @@ import android.widget.ImageView;
 import model.Game;
 
 
-public class GameActivity extends AppCompatActivity
+public class GameActivity extends AppCompatActivity implements View.OnClickListener
 {
     Button btnAI;
     Button btnUndo;
     Button btnDraw;
     Button btnResign;
+
+    ImageView[][] views = new ImageView[8][8];
+    String selected = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -25,34 +28,54 @@ public class GameActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        btnAI = findViewById(R.id.btnAI);
-        btnUndo = findViewById(R.id.btnUndo);
-        btnDraw = findViewById(R.id.btnDraw);
-        btnResign = findViewById(R.id.btnResign);
+        btnAI = (Button) findViewById(R.id.btnAI);
+        btnUndo = (Button) findViewById(R.id.btnUndo);
+        btnDraw = (Button) findViewById(R.id.btnDraw);
+        btnResign = (Button) findViewById(R.id.btnResign);
+
+        btnAI.setOnClickListener(this);
+        btnUndo.setOnClickListener(this);
+        btnDraw.setOnClickListener(this);
+        btnResign.setOnClickListener(this);
 
         Game game = new Game();
 
 
-
-        btnAI.setOnClickListener(arg0 ->
-        {
-            Log.i("btn", "AI");
-        });
-
-        btnUndo.setOnClickListener(arg0 ->
-        {
-            Log.i("btn", "Undo");
-        });
-
-        btnDraw.setOnClickListener(arg0 ->
-        {
-            Log.i("btn", "Draw");
-        });
-
-        btnResign.setOnClickListener(arg0 ->
-        {
-            Log.i("btn", "Resign");
-        });
     }
 
+    public void onClick(Button arg0)
+    {
+        Log.i("btn", "?");
+    }
+
+    @Override
+    public void onClick(View view)
+    {
+        if (view instanceof Button)
+        {
+            Button btn = (Button) view;
+            Log.i("Button", view.getResources().getResourceName(view.getId()));
+            switch (btn.getId())
+            {
+                case R.id.btnAI:
+                    // do something
+                    break;
+                case R.id.btnUndo:
+                    // do something
+                    break;
+                case R.id.btnDraw:
+                    // do something
+                    break;
+                case R.id.btnResign:
+                    // do something
+                    break;
+            }
+        }
+        else if (view instanceof ImageView)
+        {
+           ImageView img = (ImageView) view;
+           Log.i("ImageView", view.getResources().getResourceName(view.getId()));
+        }
+
+    }
 }
