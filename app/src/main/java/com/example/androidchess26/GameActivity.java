@@ -43,11 +43,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public void onClick(Button arg0)
-    {
-        Log.i("btn", "?");
-    }
-
     @Override
     public void onClick(View view)
     {
