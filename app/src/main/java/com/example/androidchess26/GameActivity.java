@@ -120,7 +120,18 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public void select(ImageView img)
     {
         color_board();
-        img.setBackgroundColor(Color.parseColor(pink));
+        Resources res = getResources();
+        String str = res.getResourceEntryName(img.getId());
+        if (selected != null && selected.equals(str))
+        {
+            selected = null;
+        }
+        else
+        {
+            img.setBackgroundColor(Color.parseColor(pink));
+            selected = str;
+        }
+
     }
 
 }
