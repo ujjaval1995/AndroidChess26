@@ -5,4 +5,8 @@
     <string name="recorded_games">Recorded Games</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="draw">Draw</string>
+    <string name="resign">Resign</string>
+    <string name="undo">Undo</string>
+    <string name="ai">AI</string>
 </resources>
