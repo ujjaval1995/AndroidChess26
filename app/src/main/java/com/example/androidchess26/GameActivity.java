@@ -27,7 +27,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     ImageView[][] views;
     String player;
-    String selected;
+    String selected_square;
+    Piece selected_piece;
 
     Game game;
 
@@ -48,6 +49,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         btnResign.setOnClickListener(this);
 
         views = new ImageView[8][8];
+        player = "white";
+        selected_square = null;
+        selected_piece = null;
         init_board();
 
         game = new Game();
@@ -119,19 +123,29 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     public void select(ImageView img)
     {
-        color_board();
         Resources res = getResources();
-        String str = res.getResourceEntryName(img.getId());
-        if (selected != null && selected.equals(str))
+        String pos = res.getResourceEntryName(img.getId());
+
+        if (selected_square == null)
         {
-            selected = null;
+            Piece piece = game.getCurrent().getPiece(pos);
+            if (piece != null && piece.hasColor(player))
+            {
+                img.setBackgroundColor(Color.parseColor(pink));
+                selected_square = pos;
+                selected_piece = piece;
+            }
+        }
+        else if (selected_square.equals(pos))
+        {
+            color_board();
+            selected_square = null;
+            selected_piece = null;
         }
         else
         {
-            img.setBackgroundColor(Color.parseColor(pink));
-            selected = str;
+            // move piece
         }
-
     }
 
 }
