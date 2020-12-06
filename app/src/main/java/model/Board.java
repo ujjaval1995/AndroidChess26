@@ -45,32 +45,14 @@ public class Board
 		board_idx[0][4] = new King("black");
 		board_idx[7][4] = new King("white");
 	}
-	
-//	static void print_board()
-//	{
-//		for (int i=0; i<8; i++)
-//		{
-//			for (int j=0; j<8; j++)
-//			{
-//				Piece piece = board[i][j];
-//				if (piece != null)
-//				{
-//					System.out.print(piece + " ");
-//				}
-//				else if ((i+j)%2 == 1)
-//				{
-//					System.out.print("## ");
-//				}
-//				else
-//				{
-//					System.out.print("   ");
-//				}
-//			}
-//			System.out.println(8-i);
-//		}
-//		System.out.println(" a  b  c  d  e  f  g  h\n");
-//	}
-	
+
+	public Piece getPiece(String pos)
+	{
+		int col = file_to_col(pos.charAt(0));
+		int row = rank_to_row(pos.charAt(1));
+		return board_idx[row][col];
+	}
+
 	public static int file_to_col(char file)
 	{
 		switch (file)

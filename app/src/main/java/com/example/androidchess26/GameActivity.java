@@ -20,14 +20,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     final String colored = "#996633";
     final String uncolored = "#FFFFCC";
 
+    ImageView player;
     Button btnAI;
     Button btnUndo;
     Button btnDraw;
     Button btnResign;
 
     ImageView[][] views;
-    String player;
-    String selected;
+    String current_player;
+    String selected_square;
+    Piece selected_piece;
 
     Game game;
 
@@ -37,6 +39,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        ImageView player = (ImageView) findViewById(R.id.player);
         btnAI = (Button) findViewById(R.id.btnAI);
         btnUndo = (Button) findViewById(R.id.btnUndo);
         btnDraw = (Button) findViewById(R.id.btnDraw);
@@ -48,6 +51,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         btnResign.setOnClickListener(this);
 
         views = new ImageView[8][8];
+        current_player = "white";
+        selected_square = null;
+        selected_piece = null;
         init_board();
 
         game = new Game();
@@ -117,21 +123,45 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 		}
     }
 
-    public void select(ImageView img)
+    public void change_turn()
     {
-        color_board();
-        Resources res = getResources();
-        String str = res.getResourceEntryName(img.getId());
-        if (selected != null && selected.equals(str))
+        if (current_player.equals("white"))
         {
-            selected = null;
+            player.setImageResource(R.drawable.blackking);
+            current_player = "black";
         }
         else
         {
-            img.setBackgroundColor(Color.parseColor(pink));
-            selected = str;
+            player.setImageResource(R.drawable.whiteking);
+            current_player = "white";
         }
+    }
 
+    public void select(ImageView img)
+    {
+        Resources res = getResources();
+        String pos = res.getResourceEntryName(img.getId());
+
+        if (selected_square == null)
+        {
+            Piece piece = game.getCurrent().getPiece(pos);
+            if (piece != null && piece.hasColor(current_player))
+            {
+                img.setBackgroundColor(Color.parseColor(pink));
+                selected_square = pos;
+                selected_piece = piece;
+            }
+        }
+        else if (selected_square.equals(pos))
+        {
+            color_board();
+            selected_square = null;
+            selected_piece = null;
+        }
+        else
+        {
+            // move piece
+        }
     }
 
 }
