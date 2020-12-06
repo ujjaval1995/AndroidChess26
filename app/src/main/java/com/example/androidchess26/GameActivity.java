@@ -86,7 +86,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         {
            ImageView img = (ImageView) view;
            Log.i("ImageView", view.getResources().getResourceName(view.getId()));
-           select(img);
+            try {
+                select(img);
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+            }
         }
 
     }
@@ -137,7 +141,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void select(ImageView img)
+    public void select(ImageView img) throws CloneNotSupportedException
     {
         Resources res = getResources();
         String pos = res.getResourceEntryName(img.getId());
@@ -160,8 +164,37 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
         else
         {
-            // move piece
+            Board board = game.getCurrent();
+
+            board.print_board();
+
+            Board newBoard = new Board(board);
+
+            System.out.println("break 1");
+            newBoard.print_board();
+            System.out.println("break 2");
+
+            int row = Board.rank_to_row(pos.charAt(1));
+            int col = Board.file_to_col(pos.charAt(0));
+            Piece piece = newBoard.getBoard_idx()[row][col];
+            if (piece != null)
+            {
+                boolean moved = newBoard.getBoard_idx()[row][col].move(selected_square + " " + pos + "", true);
+                if (moved)
+                {
+                    update_board();
+                }
+                else
+                {
+
+                }
+            }
         }
+    }
+
+    public void update_board()
+    {
+
     }
 
 }

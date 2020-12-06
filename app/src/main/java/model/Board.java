@@ -20,15 +20,29 @@ public class Board
 
 	public Board(Board board) throws CloneNotSupportedException
 	{
-		Board newBoard = new Board();
+		board_idx = new Piece[8][8];
+		next = null;
+		prev = null;
 
 		for (int i = 0; i < 8; i++)
 		{
 			for (int j = 0; j < 8; j++)
 			{
-				newBoard.board_idx[i][j] = (Piece) board.board_idx[i][j].clone();
+				if (board.board_idx[i][j] != null)
+				{
+					board_idx[i][j] = (Piece) board.board_idx[i][j].clone();
+				}
+				else
+				{
+					board_idx[i][j] = null;
+				}
 			}
 		}
+	}
+
+	public Piece[][] getBoard_idx()
+	{
+		return board_idx;
 	}
 	
 	public void initialize_board()
@@ -57,6 +71,31 @@ public class Board
 		board_idx[7][3] = new Queen("white");
 		board_idx[0][4] = new King("black");
 		board_idx[7][4] = new King("white");
+	}
+
+	public void print_board()
+	{
+		for (int i=0; i<8; i++)
+		{
+			for (int j=0; j<8; j++)
+			{
+				Piece piece = board_idx[i][j];
+				if (piece != null)
+				{
+					System.out.print(piece + " ");
+				}
+				else if ((i+j)%2 == 1)
+				{
+					System.out.print("## ");
+				}
+				else
+				{
+					System.out.print("   ");
+				}
+			}
+			System.out.println(8-i);
+		}
+		System.out.println(" a  b  c  d  e  f  g  h\n");
 	}
 
 	public Piece getPiece(String pos)
