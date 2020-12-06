@@ -17,6 +17,19 @@ public class Board
 		next = null;
 		prev = null;
 	}
+
+	public Board(Board board) throws CloneNotSupportedException
+	{
+		Board newBoard = new Board();
+
+		for (int i = 0; i < 8; i++)
+		{
+			for (int j = 0; j < 8; j++)
+			{
+				newBoard.board_idx[i][j] = (Piece) board.board_idx[i][j].clone();
+			}
+		}
+	}
 	
 	public void initialize_board()
 	{

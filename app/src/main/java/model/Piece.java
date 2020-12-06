@@ -6,7 +6,7 @@ package model;
  * @author Ujjaval Shah
  */
 
-public abstract class Piece extends Board
+public abstract class Piece extends Board implements Cloneable
 {
 	private String color;
 	
@@ -57,7 +57,13 @@ public abstract class Piece extends Board
 			return false;
 		}
 	}
-	
+
+	@Override
+	public Object clone() throws CloneNotSupportedException
+	{
+		return (Piece) super.clone();
+	}
+
 	public abstract boolean move(String input, boolean modify);
 	
 	/**
