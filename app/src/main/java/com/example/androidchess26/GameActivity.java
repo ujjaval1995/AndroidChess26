@@ -20,13 +20,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     final String colored = "#996633";
     final String uncolored = "#FFFFCC";
 
+    ImageView player;
     Button btnAI;
     Button btnUndo;
     Button btnDraw;
     Button btnResign;
 
     ImageView[][] views;
-    String player;
+    String current_player;
     String selected_square;
     Piece selected_piece;
 
@@ -38,6 +39,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        ImageView player = (ImageView) findViewById(R.id.player);
         btnAI = (Button) findViewById(R.id.btnAI);
         btnUndo = (Button) findViewById(R.id.btnUndo);
         btnDraw = (Button) findViewById(R.id.btnDraw);
@@ -49,7 +51,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         btnResign.setOnClickListener(this);
 
         views = new ImageView[8][8];
-        player = "white";
+        current_player = "white";
         selected_square = null;
         selected_piece = null;
         init_board();
@@ -121,6 +123,20 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 		}
     }
 
+    public void change_turn()
+    {
+        if (current_player.equals("white"))
+        {
+            player.setImageResource(R.drawable.blackking);
+            current_player = "black";
+        }
+        else
+        {
+            player.setImageResource(R.drawable.whiteking);
+            current_player = "white";
+        }
+    }
+
     public void select(ImageView img)
     {
         Resources res = getResources();
@@ -129,7 +145,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         if (selected_square == null)
         {
             Piece piece = game.getCurrent().getPiece(pos);
-            if (piece != null && piece.hasColor(player))
+            if (piece != null && piece.hasColor(current_player))
             {
                 img.setBackgroundColor(Color.parseColor(pink));
                 selected_square = pos;
