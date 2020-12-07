@@ -11,6 +11,11 @@ public class Bishop extends Piece
 	{
 		super(color);
 	}
+
+	Bishop(Bishop bishop)
+	{
+		super(bishop.getColor());
+	}
 	
 	public String toString()
 	{

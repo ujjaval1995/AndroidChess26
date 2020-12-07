@@ -14,8 +14,15 @@ public class Pawn extends Piece
 	Pawn(String color)
 	{
 		super(color);
-		this.moved = false;
-		this.enpassant = false;
+		moved = false;
+		enpassant = false;
+	}
+
+	Pawn(Pawn pawn)
+	{
+		super(pawn.getColor());
+		moved = pawn.moved;
+		enpassant = pawn.enpassant;
 	}
 	
 	public String toString()

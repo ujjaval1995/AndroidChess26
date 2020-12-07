@@ -12,6 +12,11 @@ public class Knight extends Piece
 	{
 		super(color);
 	}
+
+	Knight(Knight knight)
+	{
+		super(knight.getColor());
+	}
 	
 	public String toString()
 	{

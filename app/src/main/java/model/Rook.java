@@ -13,7 +13,13 @@ public class Rook extends Piece
 	Rook(String color)
 	{
 		super(color);
-		this.moved = false;
+		moved = false;
+	}
+
+	Rook(Rook rook)
+	{
+		super(rook.getColor());
+		moved = rook.moved;
 	}
 	
 	public String toString()

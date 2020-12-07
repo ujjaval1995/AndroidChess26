@@ -15,6 +15,12 @@ public class King extends Piece
 		super(color);
 		moved = false;
 	}
+
+	King(King king)
+	{
+		super(king.getColor());
+		moved = king.moved;
+	}
 	
 	public String toString()
 	{

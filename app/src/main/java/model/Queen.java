@@ -12,6 +12,11 @@ public class Queen extends Piece
 	{
 		super(color);
 	}
+
+	Queen(Queen queen)
+	{
+		super(queen.getColor());
+	}
 	
 	public String toString()
 	{
