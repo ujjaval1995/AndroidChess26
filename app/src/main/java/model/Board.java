@@ -60,27 +60,27 @@ public class Board
 				{
 					if (piece instanceof Pawn)
 					{
-						piece = new Pawn(piece.getColor());
+						piece = new Pawn((Pawn) piece);
 					}
 					else if (piece instanceof King)
 					{
-						piece = new King(piece.getColor());
+						piece = new King((King) piece);
 					}
 					else if (piece instanceof Queen)
 					{
-						piece = new Queen(piece.getColor());
+						piece = new Queen((Queen) piece);
 					}
 					else if (piece instanceof Rook)
 					{
-						piece = new Rook(piece.getColor());
+						piece = new Rook((Rook) piece);
 					}
 					else if (piece instanceof Knight)
 					{
-						piece = new Knight(piece.getColor());
+						piece = new Knight((Knight) piece);
 					}
 					else if (piece instanceof Bishop)
 					{
-						piece = new Bishop(piece.getColor());
+						piece = new Bishop((Bishop) piece);
 					}
 					boardIdx[i][j] = piece;
 				}
