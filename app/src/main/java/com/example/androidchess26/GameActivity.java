@@ -29,7 +29,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     ImageView[][] views;
     String currentPlayer;
     String selectedSquare;
-    Piece selectedPiece;
 
     Game game;
 
@@ -39,7 +38,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        ImageView imgplayer = (ImageView) findViewById(R.id.imgplayer);
+        imgplayer = (ImageView) findViewById(R.id.imgplayer);
         btnAI = (Button) findViewById(R.id.btnAI);
         btnUndo = (Button) findViewById(R.id.btnUndo);
         btnDraw = (Button) findViewById(R.id.btnDraw);
@@ -53,8 +52,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         views = new ImageView[8][8];
         currentPlayer = "white";
         selectedSquare = null;
-        selectedPiece = null;
-        init_board();
+        initBoard();
 
         game = new Game();
     }
@@ -95,7 +93,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public void init_board()
+    public void initBoard()
     {
         for (int i = 0; i < 8; i++)
         {
@@ -109,7 +107,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void color_board()
+    public void colorBoard()
     {
         for (int i = 0; i < 8; i++)
 		{
@@ -127,7 +125,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 		}
     }
 
-    public void change_turn()
+    public void changeTurn()
     {
         if (currentPlayer.equals("white"))
         {
@@ -153,40 +151,101 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             {
                 img.setBackgroundColor(Color.parseColor(pink));
                 selectedSquare = pos;
-                selectedPiece = piece;
             }
         }
         else if (selectedSquare.equals(pos))
         {
-            color_board();
+            colorBoard();
             selectedSquare = null;
-            selectedPiece = null;
         }
         else
         {
             Board board = game.getCurrent();
             Board newBoard = new Board(board);
+
             int row = Board.rankToRow(pos.charAt(1));
             int col = Board.fileToCol(pos.charAt(0));
-            Piece piece = newBoard.getBoardIdx()[row][col];
-            if (piece != null)
-            {
-                boolean moved = newBoard.getBoardIdx()[row][col].move(selectedSquare + " " + pos + "", true);
-                if (moved)
-                {
-                    update_board();
-                }
-                else
-                {
 
-                }
+            Piece piece = newBoard.getPiece(selectedSquare);
+            boolean moved = piece.move(selectedSquare + " " + pos + "", true);
+            if (moved)
+            {
+                Log.i("move", "true");
+                game.addBoard(newBoard);
+                colorBoard();
+                refreshBoard(newBoard);
+                changeTurn();
+
+//                newBoard.printBoard();
+//                game.getCurrent().printBoard();
+
+            }
+            else
+            {
+                Log.i("move", "false");
             }
         }
     }
 
-    public void update_board()
+    public void refreshBoard(Board board)
     {
+        Resources res = getResources();
+        for (int i = 0; i < 8; i++)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+                int id = res.getIdentifier(Character.toString(Board.colToFile(j)) + Character.toString(Board.rowToRank(i)), "id", this.getPackageName());
+                ImageView img = findViewById(id);
 
+                Piece piece = game.getCurrent().getBoardIdx()[i][j];
+                if (piece != null)
+                {
+                    switch (piece.toString())
+                    {
+                        case "wp":
+                            img.setImageResource(R.drawable.whitepawn);
+                            break;
+                        case "wK":
+                            img.setImageResource(R.drawable.whiteking);
+                            break;
+                        case "wQ":
+                            img.setImageResource(R.drawable.whitequeen);
+                            break;
+                        case "wN":
+                            img.setImageResource(R.drawable.whiteknight);
+                            break;
+                        case "wR":
+                            img.setImageResource(R.drawable.whiterook);
+                            break;
+                        case "wB":
+                            img.setImageResource(R.drawable.whitebishop);
+                            break;
+                        case "bp":
+                            img.setImageResource(R.drawable.blackpawn);
+                            break;
+                        case "bK":
+                            img.setImageResource(R.drawable.blackking);
+                            break;
+                        case "bQ":
+                            img.setImageResource(R.drawable.blackqueen);
+                            break;
+                        case "bN":
+                            img.setImageResource(R.drawable.blackknight);
+                            break;
+                        case "bR":
+                            img.setImageResource(R.drawable.blackrook);
+                            break;
+                        case "bB":
+                            img.setImageResource(R.drawable.blackbishop);
+                            break;
+                    }
+                }
+                else
+                {
+                    img.setImageResource(R.drawable.transparent);
+                }
+            }
+        }
     }
 
 }
