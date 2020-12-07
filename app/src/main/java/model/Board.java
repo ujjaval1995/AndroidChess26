@@ -44,7 +44,7 @@ public class Board
 //		}
 //	}
 
-	public Board(Board board) // *******************************************************************
+	public Board(Board board)
 	{
 		boardIdx = new Piece[8][8];
 		next = null;
@@ -60,29 +60,29 @@ public class Board
 				{
 					if (piece instanceof Pawn)
 					{
-						piece = new Pawn((Pawn) piece);
+						newPiece = new Pawn((Pawn) piece);
 					}
 					else if (piece instanceof King)
 					{
-						piece = new King((King) piece);
+						newPiece = new King((King) piece);
 					}
 					else if (piece instanceof Queen)
 					{
-						piece = new Queen((Queen) piece);
+						newPiece = new Queen((Queen) piece);
 					}
 					else if (piece instanceof Rook)
 					{
-						piece = new Rook((Rook) piece);
+						newPiece = new Rook((Rook) piece);
 					}
 					else if (piece instanceof Knight)
 					{
-						piece = new Knight((Knight) piece);
+						newPiece = new Knight((Knight) piece);
 					}
 					else if (piece instanceof Bishop)
 					{
-						piece = new Bishop((Bishop) piece);
+						newPiece = new Bishop((Bishop) piece);
 					}
-					boardIdx[i][j] = piece;
+					boardIdx[i][j] = newPiece;
 				}
 				else
 				{
@@ -220,6 +220,12 @@ public class Board
 		}
 		return ' ';
 	}
+
+	public boolean move(String input)
+	{
+		return true;
+	}
+
 	
 	public boolean check(String color)
 	{
@@ -287,4 +293,5 @@ public class Board
 		}
 		return true;
 	}
+
 }
