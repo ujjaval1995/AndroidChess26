@@ -10,7 +10,7 @@ public class Game
     {
         turn = 0;
         first = new Board();
-        first.initialize_board();
+        first.initializeBoard();
         current = first;
     }
 

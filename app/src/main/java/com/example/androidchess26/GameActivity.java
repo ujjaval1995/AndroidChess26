@@ -20,16 +20,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     final String colored = "#996633";
     final String uncolored = "#FFFFCC";
 
-    ImageView player;
+    ImageView imgplayer;
     Button btnAI;
     Button btnUndo;
     Button btnDraw;
     Button btnResign;
 
     ImageView[][] views;
-    String current_player;
-    String selected_square;
-    Piece selected_piece;
+    String currentPlayer;
+    String selectedSquare;
+    Piece selectedPiece;
 
     Game game;
 
@@ -39,7 +39,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        ImageView player = (ImageView) findViewById(R.id.player);
+        ImageView imgplayer = (ImageView) findViewById(R.id.imgplayer);
         btnAI = (Button) findViewById(R.id.btnAI);
         btnUndo = (Button) findViewById(R.id.btnUndo);
         btnDraw = (Button) findViewById(R.id.btnDraw);
@@ -51,9 +51,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         btnResign.setOnClickListener(this);
 
         views = new ImageView[8][8];
-        current_player = "white";
-        selected_square = null;
-        selected_piece = null;
+        currentPlayer = "white";
+        selectedSquare = null;
+        selectedPiece = null;
         init_board();
 
         game = new Game();
@@ -102,7 +102,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             for (int j = 0; j < 8; j++)
             {
                 Resources res = getResources();
-                int id = res.getIdentifier(Character.toString(Board.col_to_file(j)) + Character.toString(Board.row_to_rank(i)), "id", this.getPackageName());
+                int id = res.getIdentifier(Character.toString(Board.colToFile(j)) + Character.toString(Board.rowToRank(i)), "id", this.getPackageName());
                 views[i][j] = (ImageView) findViewById(id);
                 views[i][j].setOnClickListener(this);
             }
@@ -129,15 +129,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     public void change_turn()
     {
-        if (current_player.equals("white"))
+        if (currentPlayer.equals("white"))
         {
-            player.setImageResource(R.drawable.blackking);
-            current_player = "black";
+            imgplayer.setImageResource(R.drawable.blackking);
+            currentPlayer = "black";
         }
         else
         {
-            player.setImageResource(R.drawable.whiteking);
-            current_player = "white";
+            imgplayer.setImageResource(R.drawable.whiteking);
+            currentPlayer = "white";
         }
     }
 
@@ -146,40 +146,32 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         Resources res = getResources();
         String pos = res.getResourceEntryName(img.getId());
 
-        if (selected_square == null)
+        if (selectedSquare == null)
         {
             Piece piece = game.getCurrent().getPiece(pos);
-            if (piece != null && piece.hasColor(current_player))
+            if (piece != null && piece.hasColor(currentPlayer))
             {
                 img.setBackgroundColor(Color.parseColor(pink));
-                selected_square = pos;
-                selected_piece = piece;
+                selectedSquare = pos;
+                selectedPiece = piece;
             }
         }
-        else if (selected_square.equals(pos))
+        else if (selectedSquare.equals(pos))
         {
             color_board();
-            selected_square = null;
-            selected_piece = null;
+            selectedSquare = null;
+            selectedPiece = null;
         }
         else
         {
             Board board = game.getCurrent();
-
-            board.print_board();
-
             Board newBoard = new Board(board);
-
-            System.out.println("break 1");
-            newBoard.print_board();
-            System.out.println("break 2");
-
-            int row = Board.rank_to_row(pos.charAt(1));
-            int col = Board.file_to_col(pos.charAt(0));
-            Piece piece = newBoard.getBoard_idx()[row][col];
+            int row = Board.rankToRow(pos.charAt(1));
+            int col = Board.fileToCol(pos.charAt(0));
+            Piece piece = newBoard.getBoardIdx()[row][col];
             if (piece != null)
             {
-                boolean moved = newBoard.getBoard_idx()[row][col].move(selected_square + " " + pos + "", true);
+                boolean moved = newBoard.getBoardIdx()[row][col].move(selectedSquare + " " + pos + "", true);
                 if (moved)
                 {
                     update_board();

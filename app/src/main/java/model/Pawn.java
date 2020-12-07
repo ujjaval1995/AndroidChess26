@@ -25,10 +25,10 @@ public class Pawn extends Piece
 
 	public boolean move(String input, boolean modify)
 	{
-		int col1 = file_to_col(input.charAt(0));
-		int row1 = rank_to_row(input.charAt(1));
-		int col2 = file_to_col(input.charAt(3));
-		int row2 = rank_to_row(input.charAt(4));
+		int col1 = fileToCol(input.charAt(0));
+		int row1 = rankToRow(input.charAt(1));
+		int col2 = fileToCol(input.charAt(3));
+		int row2 = rankToRow(input.charAt(4));
 		return move_forward(row1, col1, row2, col2, modify, (input.length() >= 7) ? input.charAt(6) : 'Q');
 	}
 	
@@ -48,7 +48,7 @@ public class Pawn extends Piece
 			}
 			else if ((this.hasColor("white") && row1-2 == row2) || (this.hasColor("black") && row1+2 == row2) && !moved) // 2
 			{
-				if (board_idx[(row1+row2)/2][col1] != null) // clear path
+				if (boardIdx[(row1+row2)/2][col1] != null) // clear path
 				{
 					return false;
 				}
@@ -99,31 +99,31 @@ public class Pawn extends Piece
 	
 	public boolean enpassant(int row1, int col1, int row2, int col2, boolean modify)
 	{
-		if (board_idx[row2][col2] == null)
+		if (boardIdx[row2][col2] == null)
 		{
-			Piece piece = board_idx[row1][col2];
+			Piece piece = boardIdx[row1][col2];
 			if (piece instanceof Pawn && !piece.hasColor(this.getColor()))
 			{
 				Pawn pawn = (Pawn) piece;
 				if (pawn.enpassant)
 				{
-					board_idx[row1][col1] = null;
-					board_idx[row1][col2] = null;
-					board_idx[row2][col2] = this;
+					boardIdx[row1][col1] = null;
+					boardIdx[row1][col2] = null;
+					boardIdx[row2][col2] = this;
 					if (check(this.getColor()))
 					{
-						board_idx[row1][col1] = this;
-						board_idx[row1][col2] = piece;
-						board_idx[row2][col2] = null;
+						boardIdx[row1][col1] = this;
+						boardIdx[row1][col2] = piece;
+						boardIdx[row2][col2] = null;
 						return false;
 					}
 					else
 					{
 						if (!modify)
 						{
-							board_idx[row1][col1] = this;
-							board_idx[row1][col2] = piece;
-							board_idx[row2][col2] = null;
+							boardIdx[row1][col1] = this;
+							boardIdx[row1][col2] = piece;
+							boardIdx[row2][col2] = null;
 						}
 						return true;
 					}
@@ -151,16 +151,16 @@ public class Pawn extends Piece
 			switch (c)
 			{
 				case 'R':
-					board_idx[row][col] = new Rook(this.getColor());
+					boardIdx[row][col] = new Rook(this.getColor());
 					break;
 				case 'N':
-					board_idx[row][col] = new Knight(this.getColor());
+					boardIdx[row][col] = new Knight(this.getColor());
 					break;
 				case 'B':
-					board_idx[row][col] = new Bishop(this.getColor());
+					boardIdx[row][col] = new Bishop(this.getColor());
 					break;
 				default:
-					board_idx[row][col] = new Queen(this.getColor());
+					boardIdx[row][col] = new Queen(this.getColor());
 			}
 		}
 	}

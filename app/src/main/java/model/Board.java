@@ -7,20 +7,20 @@ package model;
  */
 public class Board
 {
-	Piece[][] board_idx;
+	Piece[][] boardIdx;
 	Board next;
 	Board prev;
 
 	public Board()
 	{
-		board_idx = new Piece[8][8];
+		boardIdx = new Piece[8][8];
 		next = null;
 		prev = null;
 	}
 
 	public Board(Board board) throws CloneNotSupportedException
 	{
-		board_idx = new Piece[8][8];
+		boardIdx = new Piece[8][8];
 		next = null;
 		prev = null;
 
@@ -28,58 +28,58 @@ public class Board
 		{
 			for (int j = 0; j < 8; j++)
 			{
-				if (board.board_idx[i][j] != null)
+				if (board.boardIdx[i][j] != null)
 				{
-					board_idx[i][j] = (Piece) board.board_idx[i][j].clone();
+					boardIdx[i][j] = (Piece) board.boardIdx[i][j].clone();
 				}
 				else
 				{
-					board_idx[i][j] = null;
+					boardIdx[i][j] = null;
 				}
 			}
 		}
 	}
 
-	public Piece[][] getBoard_idx()
+	public Piece[][] getBoardIdx()
 	{
-		return board_idx;
+		return boardIdx;
 	}
 	
-	public void initialize_board()
+	public void initializeBoard()
 	{
 		for (int j=0; j<8; j++)
 		{
-			board_idx[1][j] = new Pawn("black");
-			board_idx[6][j] = new Pawn("white");
+			boardIdx[1][j] = new Pawn("black");
+			boardIdx[6][j] = new Pawn("white");
 		}
 		for (int j=0; j<8; j+=7)
 		{
-			board_idx[0][j] = new Rook("black");
-			board_idx[7][j] = new Rook("white");
+			boardIdx[0][j] = new Rook("black");
+			boardIdx[7][j] = new Rook("white");
 		}
 		for (int j=1; j<8; j+=5)
 		{
-			board_idx[0][j] = new Knight("black");
-			board_idx[7][j] = new Knight("white");
+			boardIdx[0][j] = new Knight("black");
+			boardIdx[7][j] = new Knight("white");
 		}
 		for (int j=2; j<8; j+=3)
 		{
-			board_idx[0][j] = new Bishop("black");
-			board_idx[7][j] = new Bishop("white");
+			boardIdx[0][j] = new Bishop("black");
+			boardIdx[7][j] = new Bishop("white");
 		}
-		board_idx[0][3] = new Queen("black");
-		board_idx[7][3] = new Queen("white");
-		board_idx[0][4] = new King("black");
-		board_idx[7][4] = new King("white");
+		boardIdx[0][3] = new Queen("black");
+		boardIdx[7][3] = new Queen("white");
+		boardIdx[0][4] = new King("black");
+		boardIdx[7][4] = new King("white");
 	}
 
-	public void print_board()
+	public void printBoard()
 	{
 		for (int i=0; i<8; i++)
 		{
 			for (int j=0; j<8; j++)
 			{
-				Piece piece = board_idx[i][j];
+				Piece piece = boardIdx[i][j];
 				if (piece != null)
 				{
 					System.out.print(piece + " ");
@@ -100,12 +100,12 @@ public class Board
 
 	public Piece getPiece(String pos)
 	{
-		int col = file_to_col(pos.charAt(0));
-		int row = rank_to_row(pos.charAt(1));
-		return board_idx[row][col];
+		int col = fileToCol(pos.charAt(0));
+		int row = rankToRow(pos.charAt(1));
+		return boardIdx[row][col];
 	}
 
-	public static int file_to_col(char file)
+	public static int fileToCol(char file)
 	{
 		switch (file)
 		{
@@ -121,7 +121,7 @@ public class Board
 		return -1;
 	}
 	
-	public static int rank_to_row(char rank)
+	public static int rankToRow(char rank)
 	{
 		switch(rank)
 		{
@@ -137,7 +137,7 @@ public class Board
 		return -1;
 	}
 	
-	public static char col_to_file(int col)
+	public static char colToFile(int col)
 	{
 		switch (col)
 		{
@@ -153,7 +153,7 @@ public class Board
 		return ' ';
 	}
 	
-	public static char row_to_rank(int row)
+	public static char rowToRank(int row)
 	{
 		switch(row)
 		{
@@ -171,14 +171,14 @@ public class Board
 	
 	public boolean check(String color)
 	{
-		Piece king = board_idx[0][0];
+		Piece king = boardIdx[0][0];
 		int x=0, y=0;
 		boolean flag = false;
 		for (x=0; x<8; x++)
 		{
 			for (y=0; y<8; y++)
 			{
-				king = board_idx[x][y];
+				king = boardIdx[x][y];
 				if (king != null && king instanceof King && king.hasColor(color))
 				{
 					flag = true;
@@ -195,12 +195,12 @@ public class Board
 		{
 			for (int j=0; j<8; j++)
 			{
-				attacker = board_idx[i][j];
+				attacker = boardIdx[i][j];
 				if (attacker != null && !attacker.hasColor(color))
 				{
-					if (attacker.move(col_to_file(j) + "" + row_to_rank(i) + " " + col_to_file(y) + "" + row_to_rank(x), false))
+					if (attacker.move(colToFile(j) + "" + rowToRank(i) + " " + colToFile(y) + "" + rowToRank(x), false))
 					{
-						// System.out.println(color + " in check by " + col_to_file(j) + row_to_rank(i));
+						// System.out.println(color + " in check by " + colToFile(j) + rowToRank(i));
 						return true;
 					}
 				}
@@ -215,14 +215,14 @@ public class Board
 		{
 			for (int j=0; j<8; j++)
 			{
-				Piece piece = board_idx[i][j];
+				Piece piece = boardIdx[i][j];
 				if (piece != null && piece.hasColor(color))
 				{
 					for (int x=0; x<8; x++)
 					{
 						for (int y=0; y<8; y++)
 						{
-							if (piece.move(col_to_file(j) + "" + row_to_rank(i) + " " + col_to_file(y) + "" + row_to_rank(x), false))
+							if (piece.move(colToFile(j) + "" + rowToRank(i) + " " + colToFile(y) + "" + rowToRank(x), false))
 							{
 
 								return false;

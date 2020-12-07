@@ -72,22 +72,22 @@ public abstract class Piece extends Board implements Cloneable
 	
 	public boolean regular_move(int row1, int col1, int row2, int col2, boolean modify)
 	{
-		if (board_idx[row2][col2] == null) // move
+		if (boardIdx[row2][col2] == null) // move
 		{
-			board_idx[row1][col1] = null;
-			board_idx[row2][col2] = this;
+			boardIdx[row1][col1] = null;
+			boardIdx[row2][col2] = this;
 			if (check(color))
 			{
-				board_idx[row1][col1] = this;
-				board_idx[row2][col2] = null;
+				boardIdx[row1][col1] = this;
+				boardIdx[row2][col2] = null;
 				return false;
 			}
 			else
 			{
 				if (!modify)
 				{
-					board_idx[row1][col1] = this;
-					board_idx[row2][col2] = null;
+					boardIdx[row1][col1] = this;
+					boardIdx[row2][col2] = null;
 				}
 				return true;
 			}
@@ -100,23 +100,23 @@ public abstract class Piece extends Board implements Cloneable
 	
 	public boolean capture_move(int row1, int col1, int row2, int col2, boolean modify)
 	{		
-		if (board_idx[row2][col2] != null && !board_idx[row2][col2].hasColor(color)) // capture
+		if (boardIdx[row2][col2] != null && !boardIdx[row2][col2].hasColor(color)) // capture
 		{
-			Piece piece = board_idx[row2][col2];
-			board_idx[row1][col1] = null;
-			board_idx[row2][col2] = this;
+			Piece piece = boardIdx[row2][col2];
+			boardIdx[row1][col1] = null;
+			boardIdx[row2][col2] = this;
 			if (check(color))
 			{
-				board_idx[row1][col1] = this;
-				board_idx[row2][col2] = piece;
+				boardIdx[row1][col1] = this;
+				boardIdx[row2][col2] = piece;
 				return false;
 			}
 			else
 			{
 				if (!modify)
 				{
-					board_idx[row1][col1] = this;
-					board_idx[row2][col2] = piece;
+					boardIdx[row1][col1] = this;
+					boardIdx[row2][col2] = piece;
 				}
 				return true;
 			}
@@ -142,7 +142,7 @@ public abstract class Piece extends Board implements Cloneable
 			int max = Math.max(col1, col2);
 			for (int j=min+1; j<max; j++) // clear path
 			{
-				if (board_idx[row1][j] != null)
+				if (boardIdx[row1][j] != null)
 				{
 					return false;
 				}
@@ -154,7 +154,7 @@ public abstract class Piece extends Board implements Cloneable
 			int max = Math.max(row1, row2);
 			for (int i=min+1; i<max; i++) // clear path
 			{
-				if (board_idx[i][col1] != null)
+				if (boardIdx[i][col1] != null)
 				{
 					return false;
 				}
@@ -183,7 +183,7 @@ public abstract class Piece extends Board implements Cloneable
 			{
 				for (int i=row1+1, j=col1-1; i<row2; i++, j--) // clear path
 				{
-					if (board_idx[i][j] != null)
+					if (boardIdx[i][j] != null)
 					{
 						return false;
 					}
@@ -193,7 +193,7 @@ public abstract class Piece extends Board implements Cloneable
 			{
 				for (int i=row2+1, j=col2-1; i<row1; i++, j--) // clear path
 				{
-					if (board_idx[i][j] != null)
+					if (boardIdx[i][j] != null)
 					{
 						return false;
 					}
@@ -207,7 +207,7 @@ public abstract class Piece extends Board implements Cloneable
 			{
 				for (int i=row1+1, j=col1+1; i<row2; i++, j++) // clear path
 				{
-					if (board_idx[i][j] != null)
+					if (boardIdx[i][j] != null)
 					{
 						return false;
 					}
@@ -217,7 +217,7 @@ public abstract class Piece extends Board implements Cloneable
 			{
 				for (int i=row2+1, j=col2+1; i<row1; i++, j++) // clear path
 				{
-					if (board_idx[i][j] != null)
+					if (boardIdx[i][j] != null)
 					{
 						return false;
 					}
