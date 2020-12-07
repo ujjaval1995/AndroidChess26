@@ -18,7 +18,33 @@ public class Board
 		prev = null;
 	}
 
-	public Board(Board board) throws CloneNotSupportedException
+//	public Board(Board board) throws CloneNotSupportedException
+//	{
+//		boardIdx = new Piece[8][8];
+//		next = null;
+//		prev = null;
+//
+//		for (int i = 0; i < 8; i++)
+//		{
+//			for (int j = 0; j < 8; j++)
+//			{
+//				Piece piece = board.boardIdx[i][j];
+//				if (piece != null)
+//				{
+//					boardIdx[i][j] = (Piece) piece.clone();
+//					piece.boardIdx = boardIdx;
+//					piece.next = null;
+//					piece.prev = null;
+//				}
+//				else
+//				{
+//					boardIdx[i][j] = null;
+//				}
+//			}
+//		}
+//	}
+
+	public Board(Board board) // *******************************************************************
 	{
 		boardIdx = new Piece[8][8];
 		next = null;
@@ -28,9 +54,35 @@ public class Board
 		{
 			for (int j = 0; j < 8; j++)
 			{
-				if (board.boardIdx[i][j] != null)
+				Piece piece = board.boardIdx[i][j];
+				Piece newPiece = null;
+				if (piece != null)
 				{
-					boardIdx[i][j] = (Piece) board.boardIdx[i][j].clone();
+					if (piece instanceof Pawn)
+					{
+						piece = new Pawn(piece.getColor());
+					}
+					else if (piece instanceof King)
+					{
+						piece = new King(piece.getColor());
+					}
+					else if (piece instanceof Queen)
+					{
+						piece = new Queen(piece.getColor());
+					}
+					else if (piece instanceof Rook)
+					{
+						piece = new Rook(piece.getColor());
+					}
+					else if (piece instanceof Knight)
+					{
+						piece = new Knight(piece.getColor());
+					}
+					else if (piece instanceof Bishop)
+					{
+						piece = new Bishop(piece.getColor());
+					}
+					boardIdx[i][j] = piece;
 				}
 				else
 				{

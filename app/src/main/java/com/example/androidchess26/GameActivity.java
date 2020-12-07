@@ -163,6 +163,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             Board board = game.getCurrent();
             Board newBoard = new Board(board);
 
+            newBoard.printBoard(); // **************************************************************
+
             int row = Board.rankToRow(pos.charAt(1));
             int col = Board.fileToCol(pos.charAt(0));
 
@@ -170,19 +172,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             boolean moved = piece.move(selectedSquare + " " + pos + "", true);
             if (moved)
             {
-                Log.i("move", "true");
                 game.addBoard(newBoard);
                 colorBoard();
                 refreshBoard(newBoard);
                 changeTurn();
 
-//                newBoard.printBoard();
-//                game.getCurrent().printBoard();
+                newBoard.printBoard(); // **********************************************************
 
             }
             else
             {
-                Log.i("move", "false");
+
             }
         }
     }
