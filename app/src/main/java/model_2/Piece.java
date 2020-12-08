@@ -7,7 +7,7 @@ package model_2;
  * @author Ujjaval Shah
  */
 
-public abstract class Piece implements Cloneable
+public abstract class Piece
 {
 	protected Piece[][] boardIdx;
 	private String color;

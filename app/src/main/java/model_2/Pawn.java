@@ -31,6 +31,11 @@ public class Pawn extends Piece
 		return super.toString() + "p";
 	}
 
+	public void setEnpassant(boolean bool)
+	{
+		enpassant = bool;
+	}
+
 	public boolean move(String input, boolean modify)
 	{
 		int col1 = Board.fileToCol(input.charAt(0));

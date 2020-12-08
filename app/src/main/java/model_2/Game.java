@@ -24,7 +24,13 @@ public class Game
         return current;
     }
 
-    public void addBoard(Board board) throws CloneNotSupportedException
+    public Board setCurrent(Board board)
+    {
+        current = board;
+        return board;
+    }
+
+    public void addBoard(Board board)
     {
         current.next = board;
         board.prev = current;

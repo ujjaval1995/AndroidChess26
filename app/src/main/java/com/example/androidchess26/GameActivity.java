@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import model_2.*;
@@ -23,12 +24,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     final String uncolored = "#FFFFCC";
 
     ImageView imgplayer;
+    TextView txtturn;
+
     Button btnAI;
     Button btnUndo;
     Button btnDraw;
     Button btnResign;
 
     ImageView[][] views;
+
+    int turn;
     String currentPlayer;
     String selectedSquare;
 
@@ -41,6 +46,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_game);
 
         imgplayer = (ImageView) findViewById(R.id.imgplayer);
+        txtturn = (TextView) findViewById(R.id.txtturn);
+
         btnAI = (Button) findViewById(R.id.btnAI);
         btnUndo = (Button) findViewById(R.id.btnUndo);
         btnDraw = (Button) findViewById(R.id.btnDraw);
@@ -52,6 +59,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         btnResign.setOnClickListener(this);
 
         views = new ImageView[8][8];
+
+        turn = 0;
         currentPlayer = "white";
         selectedSquare = null;
         initBoard();
@@ -94,53 +103,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
-
-    public void initBoard()
-    {
-        for (int i = 0; i < 8; i++)
-        {
-            for (int j = 0; j < 8; j++)
-            {
-                Resources res = getResources();
-                int id = res.getIdentifier(Character.toString(Board.colToFile(j)) + Character.toString(Board.rowToRank(i)), "id", this.getPackageName());
-                views[i][j] = (ImageView) findViewById(id);
-                views[i][j].setOnClickListener(this);
-            }
-        }
-    }
-
-    public void colorBoard()
-    {
-        for (int i = 0; i < 8; i++)
-		{
-			for (int j = 0; j < 8; j++)
-			{
-				if ((i + j) % 2 == 1)
-				{
-					views[i][j].setBackgroundColor(Color.parseColor(colored));
-				}
-				else
-				{
-                    views[i][j].setBackgroundColor(Color.parseColor(uncolored));
-				}
-			}
-		}
-    }
-
-    public void changeTurn()
-    {
-        if (currentPlayer.equals("white"))
-        {
-            imgplayer.setImageResource(R.drawable.blackking);
-            currentPlayer = "black";
-        }
-        else
-        {
-            imgplayer.setImageResource(R.drawable.whiteking);
-            currentPlayer = "white";
-        }
-    }
-
     public void select(ImageView img) throws CloneNotSupportedException
     {
         Resources res = getResources();
@@ -173,9 +135,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             if (moved)
             {
                 game.addBoard(newBoard);
-                colorBoard();
                 refreshBoard(newBoard);
-                changeTurn();
+                incrementTurn();
+                resetEnpassant();
+                selectedSquare = null;
             }
             else
             {
@@ -184,8 +147,41 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    public void initBoard()
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+                Resources res = getResources();
+                int id = res.getIdentifier(Character.toString(Board.colToFile(j)) + Character.toString(Board.rowToRank(i)), "id", this.getPackageName());
+                views[i][j] = (ImageView) findViewById(id);
+                views[i][j].setOnClickListener(this);
+            }
+        }
+    }
+
+    public void colorBoard()
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+                if ((i + j) % 2 == 1)
+                {
+                    views[i][j].setBackgroundColor(Color.parseColor(colored));
+                }
+                else
+                {
+                    views[i][j].setBackgroundColor(Color.parseColor(uncolored));
+                }
+            }
+        }
+    }
+
     public void refreshBoard(Board board)
     {
+        colorBoard();
         Resources res = getResources();
         for (int i = 0; i < 8; i++)
         {
@@ -243,6 +239,54 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         }
+    }
+
+    public void changePlayer()
+    {
+        if (currentPlayer.equals("white"))
+        {
+            imgplayer.setImageResource(R.drawable.blackking);
+            currentPlayer = "black";
+        }
+        else
+        {
+            imgplayer.setImageResource(R.drawable.whiteking);
+            currentPlayer = "white";
+        }
+    }
+
+    public void resetEnpassant()
+    {
+        Board current = game.getCurrent();
+        for (int i=0; i<8; i++)
+		{
+			for (int j=0; j<8; j++)
+			{
+				Piece piece = current.getPiece(i, j);
+				if (piece instanceof Pawn)
+				{
+					if (currentPlayer.equals(piece.getColor()))
+					{
+						Pawn pawn = (Pawn) piece;
+						pawn.setEnpassant(false);
+					}
+				}
+			}
+		}
+    }
+
+    public void incrementTurn()
+	{
+		turn++;
+        txtturn.setText("Turn " + turn + "");
+        changePlayer();
+	}
+
+    public void decrementTurn()
+    {
+        turn--;
+        txtturn.setText("Turn " + turn + "");
+        changePlayer();
     }
 
 }
