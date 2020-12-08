@@ -139,7 +139,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 selectedSquare = null;
                 incrementTurn();
                 resetEnpassant();
-                checkCheck();
+
+                if (board.checkmate(currentPlayer))
+                {
+                    // REPLACE WITH DIALOG *********************************************************
+
+                    Toast.makeText(this, "Checkmate", Toast.LENGTH_SHORT).show();
+                }
+                else if (board.check(currentPlayer))
+                {
+                    Toast.makeText(this, "Check", Toast.LENGTH_SHORT).show();
+                }
             }
             else
             {
@@ -274,24 +284,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 				}
 			}
 		}
-    }
-
-    public void checkCheck()
-    {
-        Board board = game.getCurrent();
-        if (board.check(currentPlayer))
-        {
-            Toast.makeText(this, "Check", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public void checkCheckmate()
-    {
-        Board board = game.getCurrent();
-        if (board.checkmate(currentPlayer))
-        {
-
-        }
     }
 
     public void incrementTurn()
