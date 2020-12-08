@@ -1,5 +1,6 @@
 package com.example.androidchess26;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import model.*;
 
@@ -187,7 +189,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             }
             else
             {
-
+                Toast.makeText(this, "Invalid Move", Toast.LENGTH_SHORT).show();
             }
         }
     }
