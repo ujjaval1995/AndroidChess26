@@ -121,6 +121,11 @@ public class Board
 		return boardIdx[row][col];
 	}
 
+	public Piece getPiece(int row, int col)
+	{
+		return boardIdx[row][col];
+	}
+
 	public static int fileToCol(char file)
 	{
 		switch (file)

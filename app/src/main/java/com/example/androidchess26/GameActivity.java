@@ -164,7 +164,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         {
             Board board = game.getCurrent();
             Board newBoard = new Board(board);
-            newBoard.setBoardIdxPerPiece();
 
             newBoard.printBoard();
 
@@ -182,7 +181,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
                 newBoard.printBoard();
 
-                board.setBoardIdxPerPiece();
                 board.getPiece(selectedSquare).move(selectedSquare + " " + pos + "", true);
                 board.printBoard();
 
@@ -204,7 +202,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 int id = res.getIdentifier(Character.toString(Board.colToFile(j)) + Character.toString(Board.rowToRank(i)), "id", this.getPackageName());
                 ImageView img = findViewById(id);
 
-                Piece piece = game.getCurrent().getBoardIdx()[i][j];
+                Piece piece = game.getCurrent().getPiece(i, j);
                 if (piece != null)
                 {
                     switch (piece.toString())
