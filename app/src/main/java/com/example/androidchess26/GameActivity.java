@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -74,7 +73,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         if (view instanceof Button)
         {
             Button btn = (Button) view;
-            Log.i("Button", view.getResources().getResourceName(view.getId()));
             switch (btn.getId())
             {
                 case R.id.btnAI:
@@ -94,7 +92,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         else if (view instanceof ImageView)
         {
            ImageView img = (ImageView) view;
-           Log.i("ImageView", view.getResources().getResourceName(view.getId()));
             try {
                 select(img);
             } catch (CloneNotSupportedException e) {
