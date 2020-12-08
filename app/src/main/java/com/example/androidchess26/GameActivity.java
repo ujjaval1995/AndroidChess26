@@ -162,6 +162,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         {
             Board board = game.getCurrent();
             Board newBoard = new Board(board);
+            newBoard.setBoardIdxPerPiece();
 
             newBoard.printBoard();
 
@@ -179,6 +180,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
                 newBoard.printBoard();
 
+                board.setBoardIdxPerPiece();
                 board.getPiece(selectedSquare).move(selectedSquare + " " + pos + "", true);
                 board.printBoard();
 

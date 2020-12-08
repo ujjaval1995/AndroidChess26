@@ -92,6 +92,21 @@ public class Board
 		}
 	}
 
+	public void setBoardIdxPerPiece()
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			for (int j = 0; j < 8; j++)
+			{
+				Piece piece = boardIdx[i][j];
+				if (piece != null)
+				{
+					piece.boardIdx = boardIdx;
+				}
+			}
+		}
+	}
+
 	public Piece[][] getBoardIdx()
 	{
 		return boardIdx;
