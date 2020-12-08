@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import model.*;
+import model_2.*;
 
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener
