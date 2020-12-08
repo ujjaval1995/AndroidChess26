@@ -6,19 +6,20 @@ package model_2;
  * @author Jishnu Patel
  * @author Ujjaval Shah
  */
+
 public class Rook extends Piece
 {
 	boolean moved = false;
 	
-	Rook(String color)
+	Rook(Piece[][] boardIdx, String color)
 	{
-		super(color);
+		super(boardIdx, color);
 		moved = false;
 	}
 
-	Rook(Rook rook)
+	Rook(Piece[][] boardIdx, Rook rook)
 	{
-		super(rook.getColor());
+		super(boardIdx, rook);
 		moved = rook.moved;
 	}
 	
@@ -29,10 +30,10 @@ public class Rook extends Piece
 
 	public boolean move(String input, boolean modify)
 	{
-		int col1 = fileToCol(input.charAt(0));
-		int row1 = rankToRow(input.charAt(1));
-		int col2 = fileToCol(input.charAt(3));
-		int row2 = rankToRow(input.charAt(4));
+		int col1 = Board.fileToCol(input.charAt(0));
+		int row1 = Board.rankToRow(input.charAt(1));
+		int col2 = Board.fileToCol(input.charAt(3));
+		int row2 = Board.rankToRow(input.charAt(4));
 		boolean ret = move_straight(row1, col1, row2, col2, modify);
 		if (ret && modify)
 		{

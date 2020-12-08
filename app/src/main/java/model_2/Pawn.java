@@ -6,21 +6,22 @@ package model_2;
  * @author Jishnu Patel
  * @author Ujjaval Shah
  */
+
 public class Pawn extends Piece
 {
 	boolean moved;
 	boolean enpassant;
 	
-	Pawn(String color)
+	Pawn(Piece[][] boardIdx, String color)
 	{
-		super(color);
+		super(boardIdx, color);
 		moved = false;
 		enpassant = false;
 	}
 
-	Pawn(Pawn pawn)
+	Pawn(Piece[][] boardIdx, Pawn pawn)
 	{
-		super(pawn.getColor());
+		super(boardIdx, pawn);
 		moved = pawn.moved;
 		enpassant = pawn.enpassant;
 	}
@@ -32,10 +33,10 @@ public class Pawn extends Piece
 
 	public boolean move(String input, boolean modify)
 	{
-		int col1 = fileToCol(input.charAt(0));
-		int row1 = rankToRow(input.charAt(1));
-		int col2 = fileToCol(input.charAt(3));
-		int row2 = rankToRow(input.charAt(4));
+		int col1 = Board.fileToCol(input.charAt(0));
+		int row1 = Board.rankToRow(input.charAt(1));
+		int col2 = Board.fileToCol(input.charAt(3));
+		int row2 = Board.rankToRow(input.charAt(4));
 		return move_forward(row1, col1, row2, col2, modify, (input.length() >= 7) ? input.charAt(6) : 'Q');
 	}
 	
@@ -117,7 +118,7 @@ public class Pawn extends Piece
 					boardIdx[row1][col1] = null;
 					boardIdx[row1][col2] = null;
 					boardIdx[row2][col2] = this;
-					if (check(this.getColor()))
+					if (Board.check(boardIdx, this.getColor()))
 					{
 						boardIdx[row1][col1] = this;
 						boardIdx[row1][col2] = piece;
@@ -158,16 +159,16 @@ public class Pawn extends Piece
 			switch (c)
 			{
 				case 'R':
-					boardIdx[row][col] = new Rook(this.getColor());
+					boardIdx[row][col] = new Rook(boardIdx, this.getColor());
 					break;
 				case 'N':
-					boardIdx[row][col] = new Knight(this.getColor());
+					boardIdx[row][col] = new Knight(boardIdx, this.getColor());
 					break;
 				case 'B':
-					boardIdx[row][col] = new Bishop(this.getColor());
+					boardIdx[row][col] = new Bishop(boardIdx, this.getColor());
 					break;
 				default:
-					boardIdx[row][col] = new Queen(this.getColor());
+					boardIdx[row][col] = new Queen(boardIdx, this.getColor());
 			}
 		}
 	}

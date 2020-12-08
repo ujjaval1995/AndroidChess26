@@ -6,16 +6,17 @@ package model_2;
  * @author Jishnu Patel
  * @author Ujjaval Shah
  */
+
 public class Knight extends Piece
 {
-	Knight(String color)
+	Knight(Piece[][] boardIdx, String color)
 	{
-		super(color);
+		super(boardIdx, color);
 	}
 
-	Knight(Knight knight)
+	Knight(Piece[][] boardIdx, Knight knight)
 	{
-		super(knight.getColor());
+		super(boardIdx, knight);
 	}
 	
 	public String toString()
@@ -25,10 +26,10 @@ public class Knight extends Piece
 
 	public boolean move(String input, boolean modify)
 	{
-		int col1 = fileToCol(input.charAt(0));
-		int row1 = rankToRow(input.charAt(1));
-		int col2 = fileToCol(input.charAt(3));
-		int row2 = rankToRow(input.charAt(4));
+		int col1 = Board.fileToCol(input.charAt(0));
+		int row1 = Board.rankToRow(input.charAt(1));
+		int col2 = Board.fileToCol(input.charAt(3));
+		int row2 = Board.rankToRow(input.charAt(4));
 		return move_L(row1, col1, row2, col2, modify);
 	}
 	

@@ -13,32 +13,6 @@ public class Board
 		prev = null;
 	}
 
-//	public Board(Board board) throws CloneNotSupportedException
-//	{
-//		boardIdx = new Piece[8][8];
-//		next = null;
-//		prev = null;
-//
-//		for (int i = 0; i < 8; i++)
-//		{
-//			for (int j = 0; j < 8; j++)
-//			{
-//				Piece piece = board.boardIdx[i][j];
-//				if (piece != null)
-//				{
-//					boardIdx[i][j] = (Piece) piece.clone();
-//					piece.boardIdx = boardIdx;
-//					piece.next = null;
-//					piece.prev = null;
-//				}
-//				else
-//				{
-//					boardIdx[i][j] = null;
-//				}
-//			}
-//		}
-//	}
-
 	public Board(Board board)
 	{
 		boardIdx = new Piece[8][8];
@@ -55,27 +29,27 @@ public class Board
 				{
 					if (piece instanceof Pawn)
 					{
-						newPiece = new Pawn((Pawn) piece);
+						newPiece = new Pawn(boardIdx, (Pawn) piece);
 					}
 					else if (piece instanceof King)
 					{
-						newPiece = new King((King) piece);
+						newPiece = new King(boardIdx, (King) piece);
 					}
 					else if (piece instanceof Queen)
 					{
-						newPiece = new Queen((Queen) piece);
+						newPiece = new Queen(boardIdx, (Queen) piece);
 					}
 					else if (piece instanceof Rook)
 					{
-						newPiece = new Rook((Rook) piece);
+						newPiece = new Rook(boardIdx, (Rook) piece);
 					}
 					else if (piece instanceof Knight)
 					{
-						newPiece = new Knight((Knight) piece);
+						newPiece = new Knight(boardIdx, (Knight) piece);
 					}
 					else if (piece instanceof Bishop)
 					{
-						newPiece = new Bishop((Bishop) piece);
+						newPiece = new Bishop(boardIdx, (Bishop) piece);
 					}
 					boardIdx[i][j] = newPiece;
 				}
@@ -86,53 +60,33 @@ public class Board
 			}
 		}
 	}
-
-	public void setBoardIdxPerPiece()
-	{
-		for (int i = 0; i < 8; i++)
-		{
-			for (int j = 0; j < 8; j++)
-			{
-				Piece piece = boardIdx[i][j];
-				if (piece != null)
-				{
-					piece.boardIdx = boardIdx;
-				}
-			}
-		}
-	}
-
-	public Piece[][] getBoardIdx()
-	{
-		return boardIdx;
-	}
 	
 	public void initializeBoard()
 	{
 		for (int j=0; j<8; j++)
 		{
-			boardIdx[1][j] = new Pawn("black");
-			boardIdx[6][j] = new Pawn("white");
+			boardIdx[1][j] = new Pawn(boardIdx, "black");
+			boardIdx[6][j] = new Pawn(boardIdx, "white");
 		}
 		for (int j=0; j<8; j+=7)
 		{
-			boardIdx[0][j] = new Rook("black");
-			boardIdx[7][j] = new Rook("white");
+			boardIdx[0][j] = new Rook(boardIdx, "black");
+			boardIdx[7][j] = new Rook(boardIdx, "white");
 		}
 		for (int j=1; j<8; j+=5)
 		{
-			boardIdx[0][j] = new Knight("black");
-			boardIdx[7][j] = new Knight("white");
+			boardIdx[0][j] = new Knight(boardIdx, "black");
+			boardIdx[7][j] = new Knight(boardIdx, "white");
 		}
 		for (int j=2; j<8; j+=3)
 		{
-			boardIdx[0][j] = new Bishop("black");
-			boardIdx[7][j] = new Bishop("white");
+			boardIdx[0][j] = new Bishop(boardIdx, "black");
+			boardIdx[7][j] = new Bishop(boardIdx, "white");
 		}
-		boardIdx[0][3] = new Queen("black");
-		boardIdx[7][3] = new Queen("white");
-		boardIdx[0][4] = new King("black");
-		boardIdx[7][4] = new King("white");
+		boardIdx[0][3] = new Queen(boardIdx, "black");
+		boardIdx[7][3] = new Queen(boardIdx, "white");
+		boardIdx[0][4] = new King(boardIdx, "black");
+		boardIdx[7][4] = new King(boardIdx, "white");
 	}
 
 	public void printBoard()
@@ -231,7 +185,7 @@ public class Board
 		return ' ';
 	}
 	
-	public boolean check(String color)
+	public static boolean check(Piece[][] boardIdx, String color)
 	{
 		Piece king = boardIdx[0][0];
 		int x=0, y=0;
@@ -271,7 +225,7 @@ public class Board
 		return false;
 	}
 
-	public boolean checkmate(String color)
+	public static boolean checkmate(Piece[][] boardIdx, String color)
 	{
 		for (int i=0; i<8; i++)
 		{
@@ -297,5 +251,4 @@ public class Board
 		}
 		return true;
 	}
-
 }

@@ -6,16 +6,17 @@ package model_2;
  * @author Jishnu Patel
  * @author Ujjaval Shah
  */
+
 public class Bishop extends Piece
 {
-	Bishop(String color)
+	Bishop(Piece[][] boardIdx, String color)
 	{
-		super(color);
+		super(boardIdx, color);
 	}
 
-	Bishop(Bishop bishop)
+	Bishop(Piece[][] boardIdx, Bishop bishop)
 	{
-		super(bishop.getColor());
+		super(boardIdx, bishop);
 	}
 	
 	public String toString()
@@ -25,10 +26,10 @@ public class Bishop extends Piece
 
 	public boolean move(String input, boolean modify)
 	{
-		int col1 = fileToCol(input.charAt(0));
-		int row1 = rankToRow(input.charAt(1));
-		int col2 = fileToCol(input.charAt(3));
-		int row2 = rankToRow(input.charAt(4));
+		int col1 = Board.fileToCol(input.charAt(0));
+		int row1 = Board.rankToRow(input.charAt(1));
+		int col2 = Board.fileToCol(input.charAt(3));
+		int row2 = Board.rankToRow(input.charAt(4));
 		return move_diagonal(row1, col1, row2, col2, modify);
 	}
 }

@@ -10,15 +10,15 @@ public class King extends Piece
 {
 	boolean moved;
 	
-	King(String color)
+	King(Piece[][] boardIdx, String color)
 	{
-		super(color);
+		super(boardIdx, color);
 		moved = false;
 	}
 
-	King(King king)
+	King(Piece[][] boardIdx, King king)
 	{
-		super(king.getColor());
+		super(boardIdx, king);
 		moved = king.moved;
 	}
 	
@@ -29,10 +29,10 @@ public class King extends Piece
 
 	public boolean move(String input, boolean modify)
 	{
-		int col1 = fileToCol(input.charAt(0));
-		int row1 = rankToRow(input.charAt(1));
-		int col2 = fileToCol(input.charAt(3));
-		int row2 = rankToRow(input.charAt(4));
+		int col1 = Board.fileToCol(input.charAt(0));
+		int row1 = Board.rankToRow(input.charAt(1));
+		int col2 = Board.fileToCol(input.charAt(3));
+		int row2 = Board.rankToRow(input.charAt(4));
 		boolean ret = move_1(row1, col1, row2, col2, modify) || castle(row1, col1, row2, col2);
 		if (ret && modify)
 		{
@@ -60,7 +60,7 @@ public class King extends Piece
 	
 	public boolean castle(int row1, int col1, int row2, int col2)
 	{
-		if (moved || row1 != row2 || check(this.getColor())) // moved, different row, check
+		if (moved || row1 != row2 || Board.check(boardIdx, this.getColor())) // moved, different row, check
 		{
 			return false;
 		}
@@ -82,7 +82,7 @@ public class King extends Piece
 						boardIdx[row1][col1+1] = piece;
 						boardIdx[row1][col1+2] = this;
 						boardIdx[row1][7] = null;
-						if (check(this.getColor()))
+						if (Board.check(boardIdx, this.getColor()))
 						{
 							boardIdx[row1][col1] = this;
 							boardIdx[row1][col1+1] = null;
@@ -124,7 +124,7 @@ public class King extends Piece
 						boardIdx[row1][col1-1] = piece;
 						boardIdx[row1][col1-2] = this;
 						boardIdx[row1][0] = null;
-						if (check(this.getColor()))
+						if (Board.check(boardIdx, this.getColor()))
 						{
 							boardIdx[row1][col1] = this;
 							boardIdx[row1][col1-1] = null;

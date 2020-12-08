@@ -7,12 +7,14 @@ package model_2;
  * @author Ujjaval Shah
  */
 
-public abstract class Piece extends Board implements Cloneable
+public abstract class Piece implements Cloneable
 {
+	protected Piece[][] boardIdx;
 	private String color;
 	
-	Piece(String color)
+	Piece(Piece[][] boardIdx, String color)
 	{
+		this.boardIdx = boardIdx;
 		if (color.equals("white"))
 		{
 			this.color = color;
@@ -21,6 +23,12 @@ public abstract class Piece extends Board implements Cloneable
 		{
 			this.color = "black";
 		}
+	}
+
+	Piece(Piece[][] boardIdx, Piece piece)
+	{
+		this.boardIdx = boardIdx;
+		color = piece.color;
 	}
 	
 	public String toString()
@@ -59,25 +67,15 @@ public abstract class Piece extends Board implements Cloneable
 		}
 	}
 
-	@Override
-	public Object clone() throws CloneNotSupportedException
-	{
-		return (Piece) super.clone();
-	}
-
 	public abstract boolean move(String input, boolean modify);
-	
-	/**
-	 * This class represents a regular move on the ChessBoard.
-	 */
-	
+
 	public boolean regular_move(int row1, int col1, int row2, int col2, boolean modify)
 	{
 		if (boardIdx[row2][col2] == null) // move
 		{
 			boardIdx[row1][col1] = null;
 			boardIdx[row2][col2] = this;
-			if (check(color))
+			if (Board.check(boardIdx, color))
 			{
 				boardIdx[row1][col1] = this;
 				boardIdx[row2][col2] = null;
@@ -106,7 +104,7 @@ public abstract class Piece extends Board implements Cloneable
 			Piece piece = boardIdx[row2][col2];
 			boardIdx[row1][col1] = null;
 			boardIdx[row2][col2] = this;
-			if (check(color))
+			if (Board.check(boardIdx, color))
 			{
 				boardIdx[row1][col1] = this;
 				boardIdx[row2][col2] = piece;
@@ -127,10 +125,7 @@ public abstract class Piece extends Board implements Cloneable
 			return false;
 		}
 	}
-	
-	/**
-	 * This class represents a straight move on the ChessBoard.
-	 */
+
 	public boolean move_straight(int row1, int col1, int row2, int col2, boolean modify)
 	{		
 		if (row1 == row2 && col1 == col2) // same
@@ -167,9 +162,6 @@ public abstract class Piece extends Board implements Cloneable
 		}
 		return (regular_move(row1, col1, row2, col2, modify) || capture_move(row1, col1, row2, col2, modify));
 	}
-	/**
-	 * This class represents a diagonal move on the ChessBoard.
-	 */
 	
 	public boolean move_diagonal(int row1, int col1, int row2, int col2, boolean modify)
 	{	
