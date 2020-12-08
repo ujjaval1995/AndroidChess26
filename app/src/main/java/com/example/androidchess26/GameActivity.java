@@ -137,13 +137,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 incrementTurn();
                 resetEnpassant();
 
-                if (board.checkmate(currentPlayer))
+                if (newBoard.checkmate(currentPlayer))
                 {
-                    // REPLACE WITH DIALOG *********************************************************
-
-                    Toast.makeText(this, "Checkmate", Toast.LENGTH_SHORT).show();
+                    openDialog();
                 }
-                else if (board.check(currentPlayer))
+                else if (newBoard.check(currentPlayer))
                 {
                     Toast.makeText(this, "Check", Toast.LENGTH_SHORT).show();
                 }
@@ -295,6 +293,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         turn--;
         txtturn.setText("Turn " + turn + "");
         changePlayer();
+    }
+
+    public void openDialog()
+    {
+        Dialog dialog = new Dialog();
+        dialog.show(getSupportFragmentManager(), "dialog");
     }
 
     public void ai()
