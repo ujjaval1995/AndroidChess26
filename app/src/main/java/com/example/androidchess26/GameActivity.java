@@ -78,16 +78,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             switch (btn.getId())
             {
                 case R.id.btnAI:
-                    // do something
+                    ai();
                     break;
                 case R.id.btnUndo:
-                    // do something
+                    undo();
                     break;
                 case R.id.btnDraw:
-                    // do something
+                    draw();
                     break;
                 case R.id.btnResign:
-                    // do something
+                    resign();
                     break;
             }
         }
@@ -136,9 +136,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             {
                 game.addBoard(newBoard);
                 refreshBoard(newBoard);
+                selectedSquare = null;
                 incrementTurn();
                 resetEnpassant();
-                selectedSquare = null;
+                checkCheck();
             }
             else
             {
@@ -257,12 +258,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     public void resetEnpassant()
     {
-        Board current = game.getCurrent();
+        Board board = game.getCurrent();
         for (int i=0; i<8; i++)
 		{
 			for (int j=0; j<8; j++)
 			{
-				Piece piece = current.getPiece(i, j);
+				Piece piece = board.getPiece(i, j);
 				if (piece instanceof Pawn)
 				{
 					if (currentPlayer.equals(piece.getColor()))
@@ -273,6 +274,24 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 				}
 			}
 		}
+    }
+
+    public void checkCheck()
+    {
+        Board board = game.getCurrent();
+        if (board.check(currentPlayer))
+        {
+            Toast.makeText(this, "Check", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void checkCheckmate()
+    {
+        Board board = game.getCurrent();
+        if (board.checkmate(currentPlayer))
+        {
+
+        }
     }
 
     public void incrementTurn()
@@ -289,4 +308,23 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         changePlayer();
     }
 
+    public void ai()
+    {
+
+    }
+
+    public void undo()
+    {
+
+    }
+
+    public void draw()
+    {
+
+    }
+
+    public void resign()
+    {
+
+    }
 }

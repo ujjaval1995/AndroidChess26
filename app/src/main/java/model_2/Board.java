@@ -189,6 +189,46 @@ public class Board
 		}
 		return ' ';
 	}
+
+	public boolean check(String color)
+	{
+		Piece king = boardIdx[0][0];
+		int x=0, y=0;
+		boolean flag = false;
+		for (x=0; x<8; x++)
+		{
+			for (y=0; y<8; y++)
+			{
+				king = boardIdx[x][y];
+				if (king != null && king instanceof King && king.hasColor(color))
+				{
+					flag = true;
+					break;
+				}
+			}
+			if (flag)
+			{
+				break;
+			}
+		}
+		Piece attacker = null;
+		for (int i=0; i<8; i++)
+		{
+			for (int j=0; j<8; j++)
+			{
+				attacker = boardIdx[i][j];
+				if (attacker != null && !attacker.hasColor(color))
+				{
+					if (attacker.move(colToFile(j) + "" + rowToRank(i) + " " + colToFile(y) + "" + rowToRank(x), false))
+					{
+						// System.out.println(color + " in check by " + colToFile(j) + rowToRank(i));
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
 	
 	public static boolean check(Piece[][] boardIdx, String color)
 	{
@@ -228,6 +268,33 @@ public class Board
 			}
 		}
 		return false;
+	}
+
+	public boolean checkmate(String color)
+	{
+		for (int i=0; i<8; i++)
+		{
+			for (int j=0; j<8; j++)
+			{
+				Piece piece = boardIdx[i][j];
+				if (piece != null && piece.hasColor(color))
+				{
+					for (int x=0; x<8; x++)
+					{
+						for (int y=0; y<8; y++)
+						{
+							if (piece.move(colToFile(j) + "" + rowToRank(i) + " " + colToFile(y) + "" + rowToRank(x), false))
+							{
+
+								return false;
+							}
+						}
+					}
+
+				}
+			}
+		}
+		return true;
 	}
 
 	public static boolean checkmate(Piece[][] boardIdx, String color)
