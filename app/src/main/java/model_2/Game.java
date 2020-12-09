@@ -24,10 +24,10 @@ public class Game
         return current;
     }
 
-    public Board setCurrent(Board board)
+    public Board goToPrevBoard()
     {
-        current = board;
-        return board;
+        current = current.prev;
+        return current;
     }
 
     public void addBoard(Board board)

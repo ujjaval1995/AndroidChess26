@@ -36,6 +36,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     ImageView[][] views;
 
     int turn;
+    boolean canUndo;
     String currentPlayer;
     String selectedSquare;
 
@@ -62,7 +63,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         views = new ImageView[8][8];
 
-        turn = 0;
+        turn = 1;
+        canUndo = false;
         currentPlayer = "white";
         selectedSquare = null;
         initBoard();
@@ -136,7 +138,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             {
                 game.addBoard(newBoard);
                 refreshBoard(newBoard);
-                selectedSquare = null;
                 incrementTurn();
                 resetEnpassant();
 
@@ -191,6 +192,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public void refreshBoard(Board board)
     {
         colorBoard();
+        selectedSquare = null;
         Resources res = getResources();
         for (int i = 0; i < 8; i++)
         {
@@ -289,6 +291,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 		turn++;
         txtturn.setText("Turn " + turn + "");
         changePlayer();
+        canUndo = true;
 	}
 
     public void decrementTurn()
@@ -296,6 +299,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         turn--;
         txtturn.setText("Turn " + turn + "");
         changePlayer();
+        canUndo = false;
     }
 
     public void openDialog()
@@ -340,7 +344,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     public void undo()
     {
-
+        if (canUndo)
+        {
+            Board board = game.goToPrevBoard();
+            refreshBoard(board);
+            decrementTurn();
+        }
     }
 
     public void draw()
