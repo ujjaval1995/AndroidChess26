@@ -5,6 +5,7 @@ public class Game
     int turn;
     Board first;
     Board current;
+    String winner = null;
 
     public Game()
     {
