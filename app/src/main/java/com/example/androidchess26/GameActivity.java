@@ -37,6 +37,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     int turn;
     boolean canUndo;
+    boolean drawPressed;
+    boolean drawAsked;
     String currentPlayer;
     String selectedSquare;
 
@@ -65,6 +67,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         turn = 1;
         canUndo = false;
+        drawPressed = false;
+        drawAsked = false;
         currentPlayer = "white";
         selectedSquare = null;
         initBoard();
@@ -193,6 +197,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     {
         colorBoard();
         selectedSquare = null;
+        drawPressed = false;
         Resources res = getResources();
         for (int i = 0; i < 8; i++)
         {
@@ -354,7 +359,22 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     public void draw()
     {
-        openDialog();
+        if (drawPressed)
+        {
+            drawPressed = false;
+            drawAsked = false;
+            Toast.makeText(this, "Draw Deactivated", Toast.LENGTH_SHORT).show();
+        }
+        else if (drawAsked)
+        {
+            openDialog();
+        }
+        else
+        {
+            drawPressed = true;
+            drawAsked = true;
+            Toast.makeText(this, "Draw Activated. Press Draw On Next Turn to Accept", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void resign()
