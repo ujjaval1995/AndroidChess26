@@ -41,6 +41,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     boolean drawAsked;
     String currentPlayer;
     String selectedSquare;
+    String outcome;
 
     Game game;
 
@@ -71,6 +72,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         drawAsked = false;
         currentPlayer = "white";
         selectedSquare = null;
+        outcome = null;
         initBoard();
 
         game = new Game();
@@ -79,6 +81,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view)
     {
+        if (outcome != null) return;
+
         if (view instanceof Button)
         {
             Button btn = (Button) view;
@@ -101,15 +105,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         else if (view instanceof ImageView)
         {
            ImageView img = (ImageView) view;
-            try {
-                select(img);
-            } catch (CloneNotSupportedException e) {
-                e.printStackTrace();
-            }
+           select(img);
         }
 
     }
-    public void select(ImageView img) throws CloneNotSupportedException
+    public void select(ImageView img)
     {
         Resources res = getResources();
         String pos = res.getResourceEntryName(img.getId());
@@ -147,6 +147,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
                 if (newBoard.checkmate(currentPlayer))
                 {
+                    outcome = otherPlayer() + " wins";
                     openDialog();
                 }
                 else if (newBoard.check(currentPlayer))
@@ -279,6 +280,18 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    public String otherPlayer()
+    {
+        if (currentPlayer.equals("white"))
+        {
+            return "black";
+        }
+        else
+        {
+            return "white";
+        }
+    }
+
     public void resetEnpassant()
     {
         Board board = game.getCurrent();
@@ -318,6 +331,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public void openDialog()
     {
         Dialog dialog = new Dialog();
+        Bundle bundle = new Bundle();
+        bundle.putString("outcome", outcome);
+        dialog.setArguments(bundle);
         dialog.show(getSupportFragmentManager(), "dialog");
     }
 

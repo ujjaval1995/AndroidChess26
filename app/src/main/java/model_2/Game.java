@@ -5,7 +5,7 @@ public class Game
     int turn;
     Board first;
     Board current;
-    String winner;
+    String outcome;
 
     public Game()
     {
@@ -13,7 +13,7 @@ public class Game
         first = new Board();
         first.initializeBoard();
         current = first;
-        winner = null;
+        outcome = null;
     }
 
     public Board getFirst()
