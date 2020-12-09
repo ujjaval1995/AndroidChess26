@@ -34,7 +34,8 @@ public class Knight extends Piece
 	}
 	
 	public boolean move_L(int row1, int col1, int row2, int col2, boolean modify)
-	{	
+	{
+
 		if ((Math.abs(row1-row2) == 2 && Math.abs(col1-col2) == 1) || (Math.abs(row1-row2) == 1 && Math.abs(col1-col2) == 2)) // L
 		{
 			return (regular_move(row1, col1, row2, col2, modify) || capture_move(row1, col1, row2, col2, modify));

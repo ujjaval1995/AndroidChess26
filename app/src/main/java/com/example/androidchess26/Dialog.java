@@ -44,7 +44,7 @@ public class Dialog extends AppCompatDialogFragment
                     boolean valid = false;
                     if (!valid)
                     {
-                        Toast.makeText(getActivity(), "Invalid Name", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity().getBaseContext(), "Invalid Name", Toast.LENGTH_SHORT).show();
                     }
                 }
             });

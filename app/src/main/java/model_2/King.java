@@ -33,7 +33,7 @@ public class King extends Piece
 		int row1 = Board.rankToRow(input.charAt(1));
 		int col2 = Board.fileToCol(input.charAt(3));
 		int row2 = Board.rankToRow(input.charAt(4));
-		boolean ret = move_1(row1, col1, row2, col2, modify) || castle(row1, col1, row2, col2);
+		boolean ret = move_1(row1, col1, row2, col2, modify) || castle(row1, col1, row2, col2, modify);
 		if (ret && modify)
 		{
 			moved = true;
@@ -58,7 +58,7 @@ public class King extends Piece
 		}
 	}
 	
-	public boolean castle(int row1, int col1, int row2, int col2)
+	public boolean castle(int row1, int col1, int row2, int col2, boolean modify)
 	{
 		if (moved || row1 != row2 || Board.check(boardIdx, this.getColor())) // moved, different row, check
 		{
@@ -82,7 +82,7 @@ public class King extends Piece
 						boardIdx[row1][col1+1] = piece;
 						boardIdx[row1][col1+2] = this;
 						boardIdx[row1][7] = null;
-						if (Board.check(boardIdx, this.getColor()))
+						if (Board.check(boardIdx, this.getColor()) || !modify)
 						{
 							boardIdx[row1][col1] = this;
 							boardIdx[row1][col1+1] = null;

@@ -1,5 +1,7 @@
 package model_2;
 
+import java.util.ArrayList;
+
 public class Board
 {
 	Piece[][] boardIdx;
@@ -219,7 +221,8 @@ public class Board
 				attacker = boardIdx[i][j];
 				if (attacker != null && !attacker.hasColor(color))
 				{
-					if (attacker.move(colToFile(j) + "" + rowToRank(i) + " " + colToFile(y) + "" + rowToRank(x), false))
+					String str = "" + colToFile(j) + "" + rowToRank(i) + " " + colToFile(y) + "" + rowToRank(x) + "";
+					if (attacker.move(str, false))
 					{
 						// System.out.println(color + " in check by " + colToFile(j) + rowToRank(i));
 						return true;
@@ -259,7 +262,8 @@ public class Board
 				attacker = boardIdx[i][j];
 				if (attacker != null && !attacker.hasColor(color))
 				{
-					if (attacker.move(colToFile(j) + "" + rowToRank(i) + " " + colToFile(y) + "" + rowToRank(x), false))
+					String str = "" + colToFile(j) + "" + rowToRank(i) + " " + colToFile(y) + "" + rowToRank(x) + "";
+					if (attacker.move(str, false))
 					{
 						// System.out.println(color + " in check by " + colToFile(j) + rowToRank(i));
 						return true;
@@ -283,14 +287,13 @@ public class Board
 					{
 						for (int y=0; y<8; y++)
 						{
-							if (piece.move(colToFile(j) + "" + rowToRank(i) + " " + colToFile(y) + "" + rowToRank(x), false))
+							String str = "" + colToFile(j) + "" + rowToRank(i) + " " + colToFile(y) + "" + rowToRank(x) + "";
+							if (piece.move(str, false))
 							{
-
 								return false;
 							}
 						}
 					}
-
 				}
 			}
 		}
@@ -310,17 +313,43 @@ public class Board
 					{
 						for (int y=0; y<8; y++)
 						{
-							if (piece.move(colToFile(j) + "" + rowToRank(i) + " " + colToFile(y) + "" + rowToRank(x), false))
+							String str = "" + colToFile(j) + "" + rowToRank(i) + " " + colToFile(y) + "" + rowToRank(x) + "";
+							if (piece.move(str, false))
 							{
-
 								return false;
 							}
 						}
 					}
-
 				}
 			}
 		}
 		return true;
+	}
+
+	public ArrayList<String> getLegalMoves(String color)
+	{
+		ArrayList<String> list = new ArrayList<>();
+		for (int i = 0; i < 8; i++)
+		{
+			for (int j = 0; j < 8; j++)
+			{
+				Piece piece = this.getPiece(i, j);
+				if (piece != null && piece.hasColor(color))
+				{
+					for (int x = 0; x < 8; x++)
+					{
+						for (int y = 0; y < 8; y++)
+						{
+							String str = "" + colToFile(j) + "" + rowToRank(i) + " " + colToFile(y) + "" + rowToRank(x) + "";
+							if (piece.move(str, false))
+							{
+								list.add(str);
+							}
+						}
+					}
+				}
+			}
+		}
+		return list;
 	}
 }

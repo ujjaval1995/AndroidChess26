@@ -13,6 +13,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import model_2.*;
 
 
@@ -303,7 +306,36 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     public void ai()
     {
+        Board board = game.getCurrent();
+        ArrayList<String> list = board.getLegalMoves(currentPlayer);
+        int size = list.size();
 
+        Random rand = new Random();
+        int n = rand.nextInt(size);
+        String str = list.get(n);
+        char rank = str.charAt(1);
+        char file = str.charAt(0);
+        int row = Board.rankToRow(rank);
+        int col = Board.fileToCol(file);
+
+        Board newBoard = new Board(board);
+        Piece piece = newBoard.getPiece(row, col);
+        piece.move(str, true);
+
+        game.addBoard(newBoard);
+        refreshBoard(newBoard);
+        selectedSquare = null;
+        incrementTurn();
+        resetEnpassant();
+
+        if (newBoard.checkmate(currentPlayer))
+        {
+            openDialog();
+        }
+        else if (newBoard.check(currentPlayer))
+        {
+            Toast.makeText(this, "Check", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void undo()
