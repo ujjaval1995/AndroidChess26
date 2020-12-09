@@ -380,6 +380,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             refreshBoard(board);
             decrementTurn();
         }
+        else
+        {
+            Toast.makeText(this, "Cannot Undo", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void draw()
