@@ -197,6 +197,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     {
         colorBoard();
         selectedSquare = null;
+        if (drawPressed)
+        {
+            drawAsked = true;
+        }
+        else
+        {
+            drawAsked = false;
+        }
         drawPressed = false;
         Resources res = getResources();
         for (int i = 0; i < 8; i++)
@@ -359,20 +367,18 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     public void draw()
     {
-        if (drawPressed)
-        {
-            drawPressed = false;
-            drawAsked = false;
-            Toast.makeText(this, "Draw Deactivated", Toast.LENGTH_SHORT).show();
-        }
-        else if (drawAsked)
+        if (drawAsked)
         {
             openDialog();
+        }
+        else if (drawPressed)
+        {
+            drawPressed = false;
+            Toast.makeText(this, "Draw Deactivated", Toast.LENGTH_SHORT).show();
         }
         else
         {
             drawPressed = true;
-            drawAsked = true;
             Toast.makeText(this, "Draw Activated. Press Draw On Next Turn to Accept", Toast.LENGTH_SHORT).show();
         }
     }
