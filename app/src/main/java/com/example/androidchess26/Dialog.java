@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
@@ -27,20 +28,26 @@ public class Dialog extends AppCompatDialogFragment
         EditText gamename = (EditText) view.findViewById(R.id.gamename);
 
         builder.setView(view)
-                .setNegativeButton("Exit", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i)
-                    {
+            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i)
+                {
 
-                    }
-                })
-                .setPositiveButton("Save Game", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i)
-                    {
+                }
+            })
+            .setPositiveButton("Save Game", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i)
+                {
+                    String name = gamename.getText().toString().trim();
 
+                    boolean valid = false;
+                    if (!valid)
+                    {
+                        Toast.makeText(getActivity(), "Invalid Name", Toast.LENGTH_SHORT).show();
                     }
-                });
+                }
+            });
 
         return builder.create();
     }
