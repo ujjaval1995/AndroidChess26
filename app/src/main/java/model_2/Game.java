@@ -5,7 +5,7 @@ public class Game
     int turn;
     Board first;
     Board current;
-    String winner = null;
+    String winner;
 
     public Game()
     {
@@ -13,6 +13,7 @@ public class Game
         first = new Board();
         first.initializeBoard();
         current = first;
+        winner = null;
     }
 
     public Board getFirst()
@@ -38,4 +39,30 @@ public class Game
         board.next = null;
         current = board;
     }
+
+    public void writeData()
+    {
+        for (Board board = first; board != null; board = board.next)
+        {
+            String boardStr = "";
+            for (int i = 0; i < 8; i++)
+            {
+                String rowString = "";
+                for (int j = 0; j < 8; j++)
+                {
+                    Piece piece = board.getPiece(i, j);
+                    if (piece != null)
+                    {
+                        String pieceStr = piece.toString();
+                    }
+                }
+            }
+        }
+    }
+
+    public static void readData()
+    {
+
+    }
+
 }
