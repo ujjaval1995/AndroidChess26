@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 public class Dialog extends AppCompatDialogFragment
 {
-    private TextView winner;
+    private TextView txtwinner;
     private EditText gamename;
 
     @Override
@@ -24,8 +24,12 @@ public class Dialog extends AppCompatDialogFragment
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog, null);
 
-        TextView winner = (TextView) view.findViewById(R.id.winner);
+        TextView txtwinner = (TextView) view.findViewById(R.id.txtwinner);
         EditText gamename = (EditText) view.findViewById(R.id.gamename);
+
+        Bundle bundle = getArguments();
+        String winner = bundle.getString("winner","");
+        txtwinner.setText(winner);
 
         builder.setView(view)
             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

@@ -41,7 +41,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     boolean drawAsked;
     String currentPlayer;
     String selectedSquare;
-    String outcome;
+    String winner;
 
     Game game;
 
@@ -72,7 +72,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         drawAsked = false;
         currentPlayer = "white";
         selectedSquare = null;
-        outcome = null;
+        winner = null;
         initBoard();
 
         game = new Game();
@@ -81,7 +81,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view)
     {
-        if (outcome != null) return;
+        if (winner != null) return;
 
         if (view instanceof Button)
         {
@@ -147,7 +147,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
                 if (newBoard.checkmate(currentPlayer))
                 {
-                    outcome = otherPlayer() + " wins";
+                    winner = otherPlayer() + " wins";
+                    game.setWinner(winner);
                     openDialog();
                 }
                 else if (newBoard.check(currentPlayer))
@@ -332,7 +333,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     {
         Dialog dialog = new Dialog();
         Bundle bundle = new Bundle();
-        bundle.putString("outcome", outcome);
+        bundle.putString("winner", winner);
         dialog.setArguments(bundle);
         dialog.show(getSupportFragmentManager(), "dialog");
     }
@@ -385,6 +386,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     {
         if (drawAsked)
         {
+            winner = "draw";
+            game.setWinner(winner);
             openDialog();
         }
         else if (drawPressed)
@@ -401,6 +404,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     public void resign()
     {
+        winner = otherPlayer() + " wins";
+        game.setWinner(winner);
         openDialog();
     }
 }

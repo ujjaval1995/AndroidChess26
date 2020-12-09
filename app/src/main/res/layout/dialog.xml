@@ -6,10 +6,10 @@
     android:padding="20dp" >
 
     <TextView
-        android:id="@+id/winner"
+        android:id="@+id/txtwinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="White/Black Wins"
+        android:text="Outcome"
         android:textAlignment="center"
         android:textColor="#FFA500"
         android:textSize="30sp" />
@@ -18,7 +18,7 @@
         android:id="@+id/gamename"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/winner"
+        android:layout_below="@+id/txtwinner"
         android:layout_marginTop="40dp"
         android:ems="10"
         android:hint="Game Name"
