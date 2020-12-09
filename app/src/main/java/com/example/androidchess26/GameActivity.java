@@ -354,11 +354,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     public void draw()
     {
-
+        openDialog();
     }
 
     public void resign()
     {
-
+        openDialog();
     }
 }
