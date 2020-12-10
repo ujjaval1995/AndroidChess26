@@ -93,15 +93,15 @@ public class RecordedGamesActivity extends AppCompatActivity implements View.OnC
             trow.addView(hrow);
         }
 
-        {   TextView hrow = new TextView(this);
-            hrow.setText("");
-            hrow.setTextColor(Color.WHITE);
-            hrow.setBackgroundColor(Color.GRAY);
-            hrow.setWidth(250);
-            hrow.setHeight(40);
-            hrow.setTextSize(15);
-            hrow.setOnClickListener(RecordedGamesActivity.this);
-            trow.addView(hrow);
+        {   Button btPlayback = new Button(this);
+            btPlayback.setText("");
+            btPlayback.setTextColor(Color.WHITE);
+            btPlayback.setBackgroundColor(Color.GRAY);
+            btPlayback.setWidth(200);
+            btPlayback.setHeight(40);
+            btPlayback.setTextSize(15);
+            btPlayback.setOnClickListener(RecordedGamesActivity.this);
+            trow.addView(btPlayback);
         }
 
         table.addView(trow);
