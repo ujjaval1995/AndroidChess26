@@ -13,8 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONException;
-
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -441,7 +439,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         {
             game.writeData(path);
         }
-        catch (IOException | JSONException e)
+        catch (IOException e)
         {
             e.printStackTrace();
         }
