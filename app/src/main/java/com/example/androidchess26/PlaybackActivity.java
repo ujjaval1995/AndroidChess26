@@ -8,8 +8,10 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import model_2.*;
-public class PlaybackActivity extends GameActivity implements View.OnClickListener {
-    //message.setText(input);
+
+public class PlaybackActivity extends GameActivity implements View.OnClickListener
+{
+
     Button btnPrev;
     Button btnNext;
 
