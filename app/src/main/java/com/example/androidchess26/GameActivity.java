@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -46,6 +48,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     String currentPlayer;
     String selectedSquare;
     String winner;
+    String name;
+    String date;
 
     Game game;
 
@@ -79,6 +83,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         currentPlayer = "white";
         selectedSquare = null;
         winner = null;
+        name = null;
+        date = null;
         initBoard();
 
         game = new Game();
@@ -104,11 +110,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     draw();
                     break;
                 case R.id.btnResign:
-                    try {
-                        resign();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    resign();
                     break;
             }
         }
@@ -346,6 +348,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         bundle.putString("winner", winner);
         dialog.setArguments(bundle);
         dialog.show(getSupportFragmentManager(), "dialog");
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        game.setDate(dtf.format(now));
+
+//        game.setName(name);
+//        try {
+//            game.writeData(path);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public void ai()
@@ -416,10 +429,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void resign() throws IOException {
+    public void resign()
+    {
         winner = otherPlayer() + " wins";
         game.setWinner(winner);
-        game.writeData(path);
         openDialog();
     }
 }

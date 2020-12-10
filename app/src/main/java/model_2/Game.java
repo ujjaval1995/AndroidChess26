@@ -9,6 +9,8 @@ public class Game
     Board first;
     Board current;
     String winner;
+    String name;
+    String date;
 
     public Game()
     {
@@ -16,6 +18,8 @@ public class Game
         first.initializeBoard();
         current = first;
         winner = null;
+        name = null;
+        date = null;
     }
 
     public Board getFirst()
@@ -47,10 +51,23 @@ public class Game
         this.winner = winner;
     }
 
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public void setDate(String date)
+    {
+        this.date = date;
+    }
+
     public void writeData(File path) throws IOException
     {
-        File file = new File(path, "data.txt");
+        File file = new File(path, name + ".txt");
         FileWriter writer = new FileWriter(file);
+
+        writer.write(winner + "\n" + date + "\n\n");
+        writer.flush();
 
         for (Board board = first; board != null; board = board.next)
         {
@@ -75,12 +92,8 @@ public class Game
                 boardStr += rowString + "\n";
             }
             writer.write(boardStr + "\n");
+            writer.flush();
         }
-
-        writer.write("1");
-        writer.write("2");
-        System.out.println("wrote data to data.txt");
-
     }
 
     public static void readData()
