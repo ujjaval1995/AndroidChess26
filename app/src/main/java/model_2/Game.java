@@ -1,5 +1,8 @@
 package model_2;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -61,12 +64,26 @@ public class Game
         this.date = date;
     }
 
-    public void writeData(File path) throws IOException
+    public void writeList(File path) throws IOException, JSONException
     {
+        File file = new File(path, "list.json");
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put(name, date);
+
+        FileWriter writer = new FileWriter(file);
+        writer.write(jsonObject.toString());
+        writer.close();
+    }
+
+    public void writeData(File path) throws IOException, JSONException
+    {
+        writeList(path);
+
         File file = new File(path, name + ".txt");
         FileWriter writer = new FileWriter(file);
 
-        writer.write(winner + "\n" + date + "\n\n");
+        writer.write(winner + "\n\n");
         writer.flush();
 
         for (Board board = first; board != null; board = board.next)
