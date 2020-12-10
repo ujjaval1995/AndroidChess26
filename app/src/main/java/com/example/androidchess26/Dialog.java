@@ -46,7 +46,11 @@ public class Dialog extends AppCompatDialogFragment
                     String name = gamename.getText().toString().trim();
 
                     boolean valid = false;
-                    if (!valid)
+                    if (valid)
+                    {
+
+                    }
+                    else
                     {
                         Toast.makeText(getActivity().getBaseContext(), "Invalid Name", Toast.LENGTH_SHORT).show();
                     }

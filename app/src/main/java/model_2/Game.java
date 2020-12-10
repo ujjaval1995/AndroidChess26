@@ -1,5 +1,9 @@
 package model_2;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Game
 {
     Board first;
@@ -43,8 +47,11 @@ public class Game
         this.winner = winner;
     }
 
-    public void writeData()
+    public void writeData(File path) throws IOException
     {
+        File file = new File(path, "data.txt");
+        FileWriter writer = new FileWriter(file);
+
         for (Board board = first; board != null; board = board.next)
         {
             String boardStr = "";
@@ -53,14 +60,27 @@ public class Game
                 String rowString = "";
                 for (int j = 0; j < 8; j++)
                 {
+                    String pieceStr = "";
                     Piece piece = board.getPiece(i, j);
                     if (piece != null)
                     {
-                        String pieceStr = piece.toString();
+                        pieceStr = piece.toString() + " ";
                     }
+                    else
+                    {
+                        pieceStr = "-- ";
+                    }
+                    rowString += pieceStr;
                 }
+                boardStr += rowString + "\n";
             }
+            writer.write(boardStr + "\n");
         }
+
+        writer.write("1");
+        writer.write("2");
+        System.out.println("wrote data to data.txt");
+
     }
 
     public static void readData()
