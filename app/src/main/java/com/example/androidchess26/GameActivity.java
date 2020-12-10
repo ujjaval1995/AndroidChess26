@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -24,6 +26,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     final String pink = "#FF6666";
     final String colored = "#996633";
     final String uncolored = "#FFFFCC";
+
+    File path;
 
     ImageView imgplayer;
     TextView txtturn;
@@ -50,6 +54,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        path = getFilesDir();
 
         imgplayer = (ImageView) findViewById(R.id.imgplayer);
         txtturn = (TextView) findViewById(R.id.txtturn);
@@ -98,7 +104,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     draw();
                     break;
                 case R.id.btnResign:
-                    resign();
+                    try {
+                        resign();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     break;
             }
         }
@@ -406,10 +416,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void resign()
-    {
+    public void resign() throws IOException {
         winner = otherPlayer() + " wins";
         game.setWinner(winner);
+        game.writeData(path);
         openDialog();
     }
 }
