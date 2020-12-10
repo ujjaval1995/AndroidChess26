@@ -12,7 +12,6 @@ import java.util.List;
 
 public class RecordedGamesActivity extends AppCompatActivity implements View.OnClickListener
 {
-    ListView gamelist;
 
     TableLayout table;
 
@@ -21,7 +20,7 @@ public class RecordedGamesActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recordedgames);
+        setContentView(R.layout.activity_list);
         table = (TableLayout) findViewById(R.id.gametable);
 
         insertHeaderRow();
