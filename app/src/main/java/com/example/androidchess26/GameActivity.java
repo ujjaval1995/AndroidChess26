@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -23,7 +25,7 @@ import java.util.Random;
 import model_2.*;
 
 
-public class GameActivity extends AppCompatActivity implements View.OnClickListener
+public class GameActivity extends AppCompatActivity implements View.OnClickListener, Dialog.DialogListener
 {
     final String pink = "#FF6666";
     final String colored = "#996633";
@@ -348,17 +350,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         bundle.putString("winner", winner);
         dialog.setArguments(bundle);
         dialog.show(getSupportFragmentManager(), "dialog");
-
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-        game.setDate(dtf.format(now));
-
-//        game.setName(name);
-//        try {
-//            game.writeData(path);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
     }
 
     public void ai()
@@ -434,5 +425,26 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         winner = otherPlayer() + " wins";
         game.setWinner(winner);
         openDialog();
+    }
+
+    @Override
+    public void applyText(String name)
+    {
+        this.name = name;
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        game.setDate(dtf.format(now));
+
+        game.setName(name);
+        try
+        {
+            game.writeData(path);
+        }
+        catch (IOException | JSONException e)
+        {
+            e.printStackTrace();
+        }
+        System.out.println("applied text");
     }
 }
