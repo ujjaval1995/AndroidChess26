@@ -1,11 +1,12 @@
 package model_2;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Game
 {
@@ -64,19 +65,61 @@ public class Game
         this.date = date;
     }
 
-    public void writeList(File path) throws IOException, JSONException
+    public void writeList(File path) throws IOException
     {
-        File file = new File(path, "list.json");
+        HashMap<String, String> map = readList(path);
+        map.put(name, date);
 
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put(name, date);
-
+        File file = new File(path, "list.csv");
         FileWriter writer = new FileWriter(file);
-        writer.write(jsonObject.toString());
+
+        for (Map.Entry<String, String> entry : map.entrySet())
+        {
+            String name = entry.getKey();
+            String date = entry.getValue();
+
+            writer.append(name);
+            writer.append(",");
+            writer.append(date);
+            writer.append("\n");
+
+            System.out.println("print: " + name + " " + date);
+        }
         writer.close();
     }
 
-    public void writeData(File path) throws IOException, JSONException
+    public static HashMap<String, String> readList(File path) throws IOException
+    {
+        File file = new File(path, "list.csv");
+
+        if (file.exists())
+        {
+            HashMap<String, String> map = new HashMap<String, String>();
+
+            FileReader reader = new FileReader(file);
+            String line = "";
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            while ((line = br.readLine()) != null)
+            {
+                String[] arr = line.split(",", -1);
+
+                String name = arr[0];
+                String date = arr[1];
+
+                map.put(name, date);
+
+                System.out.println("put: " + name + " " + date);
+            }
+            br.close();
+            return map;
+        }
+        else
+        {
+            return new HashMap<String, String>();
+        }
+    }
+
+    public void writeData(File path) throws IOException
     {
         writeList(path);
 
