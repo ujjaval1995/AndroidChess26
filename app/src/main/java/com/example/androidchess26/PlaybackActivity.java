@@ -13,7 +13,6 @@ public class PlaybackActivity extends GameActivity implements View.OnClickListen
     Button btnPrev;
     Button btnNext;
 
-Board.initializeBoard();
 
 
 
