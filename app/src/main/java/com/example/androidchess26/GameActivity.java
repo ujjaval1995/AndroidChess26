@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -347,11 +349,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         dialog.setArguments(bundle);
         dialog.show(getSupportFragmentManager(), "dialog");
 
-        // get info and write to file
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        game.setDate(dtf.format(now));
 
-//        game.setWinner("");
-//        game.setDate("");
-//        game.setName("data");
+//        game.setName(name);
 //        try {
 //            game.writeData(path);
 //        } catch (IOException e) {
