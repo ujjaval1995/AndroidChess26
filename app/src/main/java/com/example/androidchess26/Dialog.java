@@ -45,7 +45,7 @@ public class Dialog extends AppCompatDialogFragment
                 {
                     String name = gamename.getText().toString().trim();
 
-                    boolean valid = false;
+                    boolean valid = true;
                     if (valid)
                     {
 
