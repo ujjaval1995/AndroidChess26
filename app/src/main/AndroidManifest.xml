@@ -19,6 +19,8 @@
         </activity>
         <activity android:name=".RecordedGamesActivity">
         </activity>
+        <activity android:name=".PlaybackActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -2,115 +2,110 @@ package com.example.androidchess26;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.*;
+import android.widget.ListView;
 
-import java.util.List;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-public class RecordedGamesActivity extends AppCompatActivity implements View.OnClickListener
+import model_2.Game;
+
+class GameInfo
 {
-    ListView gamelist;
+    String name;
+    String date;
 
-    TableLayout table;
+    public GameInfo(String name, String date)
+    {
+        this.name = name;
+        this.date = date;
+    }
 
+    public String toString()
+    {
+        return name + "\n(" + date + ")";
+    }
+}
 
+public class RecordedGamesActivity extends AppCompatActivity
+{
+    ListView listView;
+    Button btnsort;
+
+    String name;
+    String sort;
+
+    ArrayList<GameInfo> games;
+
+    File path;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recordedgames);
-        table = (TableLayout) findViewById(R.id.gametable);
+        setContentView(R.layout.activity_list);
 
-        insertHeaderRow();
-        insertTableRow();
+        path = getFilesDir();
+
+        games = new ArrayList<GameInfo>();
+
+        try
+        {
+            HashMap<String, String> map = Game.readList(path);
+            for (Map.Entry<String, String> entry : map.entrySet())
+            {
+                String name = entry.getKey();
+                String date = entry.getValue();
+                GameInfo info = new GameInfo(name, date);
+                games.add(info);
+            }
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        name = null;
+        sort = "name";
+
+        listView = (ListView) findViewById(R.id.listView);
+        listView.setAdapter(
+                new ArrayAdapter<GameInfo>(this, R.layout.game, games));
+
+        listView.setOnItemClickListener((p, V, pos, id) ->
+                toPlayback(pos));
+
+        Button btnsort = (Button) findViewById(R.id.btnsort);
+
     }
 
+    public void sort()
+    {
+        if (sort.equals("name"))
+        {
 
-    private void insertHeaderRow() {
-        TableRow trow = new TableRow(this);
-        //
-        {   TextView hrow = new TextView(this);
-            hrow.setText("Title");
-            hrow.setTextColor(Color.WHITE);
-            hrow.setBackgroundColor(Color.GRAY);
-            hrow.setTextSize(15);
-            hrow.setWidth(250);
-            hrow.setHeight(40);
-            hrow.setOnClickListener(RecordedGamesActivity.this);
-            trow.addView(hrow);
         }
+        else
+        {
 
-        {   TextView hrow = new TextView(this);
-            hrow.setText("Date");
-            hrow.setTextColor(Color.WHITE);
-            hrow.setBackgroundColor(Color.GRAY);
-            hrow.setWidth(250);
-            hrow.setHeight(40);
-            hrow.setTextSize(15);
-            hrow.setOnClickListener(RecordedGamesActivity.this);
-            trow.addView(hrow);
         }
-
-        {   TextView hrow = new TextView(this);
-            hrow.setText("");
-            hrow.setTextColor(Color.WHITE);
-            hrow.setBackgroundColor(Color.GRAY);
-            hrow.setWidth(250);
-            hrow.setHeight(40);
-            hrow.setTextSize(15);
-            hrow.setOnClickListener(RecordedGamesActivity.this);
-            trow.addView(hrow);
-        }
-
-        table.addView(trow);
     }
 
-    private void insertTableRow() {
-        TableRow trow = new TableRow(this);
-        //
-        {   TextView hrow = new TextView(this);
-            hrow.setText("Title");
-            hrow.setTextColor(Color.WHITE);
-            hrow.setBackgroundColor(Color.GRAY);
-            hrow.setTextSize(15);
-            hrow.setWidth(250);
-            hrow.setHeight(40);
-            hrow.setOnClickListener(RecordedGamesActivity.this);
-            trow.addView(hrow);
-        }
-
-        {   TextView hrow = new TextView(this);
-            hrow.setText("Date");
-            hrow.setTextColor(Color.WHITE);
-            hrow.setBackgroundColor(Color.GRAY);
-            hrow.setWidth(250);
-            hrow.setHeight(40);
-            hrow.setTextSize(15);
-            hrow.setOnClickListener(RecordedGamesActivity.this);
-            trow.addView(hrow);
-        }
-
-        {   Button btPlayback = new Button(this);
-            btPlayback.setText("");
-            btPlayback.setTextColor(Color.WHITE);
-            btPlayback.setBackgroundColor(Color.GRAY);
-            btPlayback.setWidth(200);
-            btPlayback.setHeight(40);
-            btPlayback.setTextSize(15);
-            btPlayback.setOnClickListener(RecordedGamesActivity.this);
-            trow.addView(btPlayback);
-        }
-
-        table.addView(trow);
-    }
-
-
-
-    @Override
-    public void onClick(View v) {
-
+    public void toPlayback(int pos)
+    {
+        Bundle bundle = new Bundle();
+        GameInfo info = games.get(pos);
+        name = info.name;
+        bundle.putString("name", name);
+        Intent intent = new Intent(this, PlaybackActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

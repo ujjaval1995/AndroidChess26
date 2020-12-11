@@ -21,24 +21,14 @@ public class MainActivity extends AppCompatActivity
         btnNewGame = (Button) findViewById(R.id.btnNewGame);
         btnRecordedGames = (Button) findViewById(R.id.btnRecordedGames);
 
-        btnNewGame.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View arg0)
-            {
-                Intent intent = new Intent(MainActivity.this, GameActivity.class);
-                startActivity(intent);
-            }
+        btnNewGame.setOnClickListener(arg0 -> {
+            Intent intent = new Intent(MainActivity.this, GameActivity.class);
+            startActivity(intent);
         });
 
-        btnRecordedGames.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View arg0)
-            {
-                Intent intent = new Intent(MainActivity.this, RecordedGamesActivity.class);
-                startActivity(intent);
-            }
+        btnRecordedGames.setOnClickListener(arg0 -> {
+            Intent intent = new Intent(MainActivity.this, RecordedGamesActivity.class);
+            startActivity(intent);
         });
     }
 
