@@ -8,16 +8,19 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
 import model_2.Game;
 
-class GameInfo
+class GameInfo implements Comparable
 {
     String name;
     String date;
@@ -32,6 +35,29 @@ class GameInfo
     {
         return name + "\n(" + date + ")";
     }
+
+    public int compareTo(GameInfo other)
+    {
+        int ret = name.compareTo(other.name);
+        return (ret != 0) ? ret : date.compareTo(other.date);
+    }
+
+    @Override
+    public int compareTo(Object o)
+    {
+        GameInfo other = (GameInfo) o;
+        int ret = name.compareTo(other.name);
+        return (ret != 0) ? ret : date.compareTo(other.date);
+    }
+
+    public static Comparator<GameInfo> dateComparator = new Comparator<GameInfo>()
+    {
+        public int compare(GameInfo gi1, GameInfo gi2)
+        {
+            String date1 = gi1.date;
+            String date2 = gi2.date;
+            return date1.compareTo(date2);
+        }};
 }
 
 public class RecordedGamesActivity extends AppCompatActivity
@@ -83,18 +109,29 @@ public class RecordedGamesActivity extends AppCompatActivity
                 toPlayback(pos));
 
         Button btnsort = (Button) findViewById(R.id.btnsort);
-
+        btnsort.setOnClickListener(arg0 ->
+        {
+            sort();
+        });
     }
 
     public void sort()
     {
         if (sort.equals("name"))
         {
-
+            Collections.sort(games, GameInfo.dateComparator);
+            listView.setAdapter(
+                    new ArrayAdapter<GameInfo>(this, R.layout.game, games));
+            sort = "date";
+            Toast.makeText(this, "Sorted By Date", Toast.LENGTH_SHORT).show();
         }
         else
         {
-
+            Collections.sort(games);
+            listView.setAdapter(
+                    new ArrayAdapter<GameInfo>(this, R.layout.game, games));
+            sort = "name";
+            Toast.makeText(this, "Sorted By Name", Toast.LENGTH_SHORT).show();
         }
     }
 
