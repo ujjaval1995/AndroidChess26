@@ -25,9 +25,16 @@
 
         <TextView
             android:id="@+id/txtturn"
-            android:layout_width="270dp"
+            android:layout_width="162dp"
             android:layout_height="wrap_content"
             android:text="Turn 1"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/txtoutcome"
+            android:layout_width="204dp"
+            android:layout_height="wrap_content"
+            android:text="Winner"
             android:textSize="30sp" />
 
     </LinearLayout>
