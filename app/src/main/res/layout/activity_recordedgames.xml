@@ -7,6 +7,22 @@
 
     <TableLayout
         android:id="@+id/gametable"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_width="413dp"
+        android:layout_height="639dp"
+        tools:layout_editor_absoluteY="92dp" />
+
+    <Button
+        android:id="@+id/btnSort"
+        android:layout_width="93dp"
+        android:layout_height="59dp"
+        android:text="Sort"
+        tools:layout_editor_absoluteX="302dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <RadioGroup
+        android:id="@+id/radioSort"
+        android:layout_width="217dp"
+        android:layout_height="61dp"
+        tools:layout_editor_absoluteX="58dp"
+        tools:layout_editor_absoluteY="16dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

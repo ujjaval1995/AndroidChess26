@@ -13,10 +13,10 @@ public class PlaybackActivity extends GameActivity implements View.OnClickListen
     Button btnPrev;
     Button btnNext;
 
-
-
-
-
+    @Override
+    public void initBoard() {
+        super.initBoard();
+    }
 }
 
 
