@@ -82,8 +82,6 @@ public class Game
             writer.append(",");
             writer.append(date);
             writer.append("\n");
-
-            System.out.println("print: " + name + " " + date);
         }
         writer.close();
     }
@@ -107,8 +105,6 @@ public class Game
                 String date = arr[1];
 
                 map.put(name, date);
-
-                System.out.println("put: " + name + " " + date);
             }
             br.close();
             return map;
@@ -155,10 +151,4 @@ public class Game
             writer.flush();
         }
     }
-
-    public static void readData()
-    {
-
-    }
-
 }
